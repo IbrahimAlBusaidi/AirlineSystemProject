@@ -1,0 +1,83 @@
+﻿<div class="carousel-container">
+    <div class="custom-carousel">
+        <div class="custom-carousel-item">
+            <img src="/Images/backgroundCarousel2.jpg" class="carousel-image" />
+            <div class="text-overlay">
+                <h1 class="text-title">Explore the Skies</h1>
+                <p class="text-subtitle">Seamless Booking for Your Dream Destinations</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .carousel-container {
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient( to bottom, rgba(59, 130, 246, 0.7), rgba(255, 165, 0, 0.2) );
+    }
+
+    .custom-carousel {
+        width: 100vw;
+        height: 500px;
+        position: relative;
+    }
+
+    .custom-carousel-item {
+        width: 100%;
+        height: 500px;
+        position: relative;
+    }
+
+    .carousel-image {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        display: block;
+    }
+
+    /*
+           Pseudo-element overlay for a bottom fade,
+           blending the carousel image into the page
+        */
+    .custom-carousel-item::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 20%; /* Adjust to control how tall the fade is */
+        /* From transparent at top to solid white at bottom */
+        background: linear-gradient( to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 100% );
+        pointer-events: none;
+    }
+
+    .text-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: var(--white-bg);
+        margin: 0 20px;
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards;
+        animation-delay: 0.3s;
+    }
+
+    .text-title {
+        font-size: 2.6rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .text-subtitle {
+        font-size: 1.4rem;
+        font-weight: 400;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+</style>

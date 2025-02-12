@@ -1,0 +1,144 @@
+﻿@inject IFlightService flightService
+@inject NavigationManager NavManager
+
+<div class="flights-container">
+    <h3 class="section-title">Available Flights</h3>
+
+    <div class="flight-panels">
+        @if (flights != null && flights.Any())
+        {
+            @foreach (var flight in flights)
+            {
+                <CascadingValue Value="flight">
+                    <FlightComponent />
+                </CascadingValue>
+            }
+        }
+        else
+        {
+            <NoFlightsComponent />
+        }
+    </div>
+</div>
+
+@code {
+    public string? Origin = null;
+    public string? Dest = null;
+    public DateTime? startDate = null;
+    public DateTime? endDate = null;
+
+    private List<FlightOutputDTO> flights { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        Origin = queryParams["origin"];
+        Dest = queryParams["dest"];
+        if (queryParams["startdate"] != null && DateTime.TryParse(queryParams["startdate"], out var parsedStartDate))
+        {
+            startDate = parsedStartDate;
+        }
+
+        if (queryParams["enddate"] != null && DateTime.TryParse(queryParams["enddate"], out var parsedEndDate))
+        {
+            endDate = parsedEndDate;
+        }
+
+        if (Origin != null && Dest != null && startDate != null && endDate != null)
+        {
+            GetFilteredFlights();
+        }
+        else
+        {
+            GetFlights();
+        }
+    }
+
+    private void GetFilteredFlights()
+    {
+        flights = flightService.GetAllFlights()
+            .Where(f =>
+                f.SourceAirportName == Origin &&
+                f.DestinationAirportName == Dest &&
+                f.ScheduledDepartureDate >= startDate &&
+                f.ScheduledDepartureDate <= endDate &&
+                (f.Status == "Scheduled" || f.Status == "ReScheduled"))
+            .ToList();
+    }
+
+    private void GetFlights()
+    {
+        flights = flightService.GetAllFlights()
+            .Where(f => f.Status == "Scheduled" || f.Status == "ReScheduled")
+            .ToList();
+    }
+}
+
+<style>
+
+    :root {
+        --white-bg: #ffffff;
+        --accent-blue: #0D47A1;
+        --accent-orange: #FFA500;
+        --text-color: #333333;
+        --light-gray: #f9f9f9;
+    }
+
+    body {
+        margin-top: -64px;
+        min-height: 100vh;
+        background: var(--white-bg);
+        /* Softer font: Nunito (fallback: Segoe UI, Tahoma, sans-serif) */
+        font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+    }
+    /*****************************************************
+         * Flights Container
+         *****************************************************/
+    .flights-container {
+        margin: -120px auto 50px;
+        padding: 30px;
+        max-width: 1200px;
+        /* Slight transparency + blur for "frosted glass" feel */
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 30px;
+        color: var(--accent-blue);
+        border-bottom: 2px solid var(--accent-orange);
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+
+    /*****************************************************
+         * Flight Panels (details/summary)
+         *****************************************************/
+    .flight-panels {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    /* Fade/slide-in animation */
+    @@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }  
+</style>
