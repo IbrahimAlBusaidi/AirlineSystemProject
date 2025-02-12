@@ -1,0 +1,49 @@
+﻿<div class="carousel-container">
+    <div class="custom-carousel">
+        <MudCarousel Class="mud-carousel"
+                     AutoCycle="true"
+                     AutoCycleTime="TimeSpan.FromMilliseconds(3000)"
+                     Style="height:500px; width: 100vw;"
+                     TData="object">
+            <MudCarouselItem Color="@Color.Primary" Transition="Transition.Fade">
+                <FirstSlideComponent />
+            </MudCarouselItem>
+            <MudCarouselItem Color="@Color.Primary" Transition="Transition.Fade">
+                <SecondSlideComponent />
+            </MudCarouselItem>
+            <MudCarouselItem Color="@Color.Primary" Transition="Transition.Fade">
+                <ThirdSlideComponent />
+            </MudCarouselItem>
+            <MudCarouselItem Color="@Color.Primary" Transition="Transition.Fade">
+                <FourthSlideComponent />
+            </MudCarouselItem>
+            <MudCarouselItem Color="@Color.Primary" Transition="Transition.Fade">
+                <FifthSlideComponent />
+            </MudCarouselItem>
+            <MudCarouselItem Color="@Color.Primary" Transition="Transition.Fade">
+                <SixthSlideComponent />
+            </MudCarouselItem>
+            <MudCarouselItem Color="@Color.Primary" Transition="Transition.Fade">
+                <SeventhSlideComponent />
+            </MudCarouselItem>
+            <MudCarouselItem Color="@Color.Primary" Transition="Transition.Fade">
+                <EightSlideComponent />
+            </MudCarouselItem>
+        </MudCarousel>
+    </div>
+</div>
+
+<style>
+    .carousel-container {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .custom-carousel {
+        width: 100vw;
+        height: 500px;
+        position: relative;
+    }
+</style>

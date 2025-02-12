@@ -1,0 +1,81 @@
+﻿@inherits LayoutComponentBase
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IAuthService authService
+@inject IUserService userService
+@inject AuthState AuthState
+@inject NavigationManager NavManager
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="0" Style="background-color: transparent; position: fixed; z-index: 10;">
+        <MudContainer Style="display: flex; background-color: rgba(255, 255, 255, 0.4); color: #546E7A; border-radius: 5px; backdrop-filter:blur(5px); justify-items: center; align-items: center; height: 60px;">
+            <a href="/"><MudImage Src="codeline-airlines-logo-no_background.png" Style="height: 55px; width: 75px; background-color:rgba(0, 0, 0, 0); border-radius: 10px"></MudImage></a>
+            <MudText Typo="Typo.h5" Class="ml-3" Color="Color.Default" Style="font-family: Consolas;">C O D E L I N E &nbsp; A I R L I N E S</MudText>
+            <MudSpacer />
+            <MudButtonGroup Variant="Variant.Text" Style="justify-content: space-evenly">
+
+                    <MudButton Href="/bookings" Style="color: white; background-color: rgba(0, 0, 0, 0.25)"><MudIcon Icon="@Icons.Material.Outlined.AirplaneTicket"></MudIcon> &nbsp; Bookings</MudButton>
+                <MudButton Href="/Profile" Style="color: white; background-color: rgba(0, 0, 0, 0.25)"><MudIcon Icon="@Icons.Material.Outlined.AccountCircle"></MudIcon> &nbsp; @user.Name</MudButton>
+                <MudButton Style="color: white; background-color: rgba(0, 0, 0, 0.25)" OnClick="SignOut"><MudIcon Icon="@Icons.Material.Outlined.Logout"></MudIcon> &nbsp; Logout</MudButton>
+
+
+            </MudButtonGroup>
+
+        </MudContainer>
+    </MudAppBar>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code
+{
+    private string? Token;
+    UserOutputDTO user = new UserOutputDTO();
+    protected override void OnInitialized()
+    {
+        AuthState.OnChange += RefreshLayout;
+        Token = HttpContextAccessor.HttpContext?.Request.Cookies["authToken"];
+        if (!string.IsNullOrWhiteSpace(Token))
+        {
+            var claims = JwtHelper.GetClaimsFromToken(Token);
+            if (claims != null)
+            {
+                string userRole = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+                if (userRole == "admin")
+                {
+                    NavManager.NavigateTo("/AdminHomePage");
+                }
+                int userId = int.Parse(claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                if (userId > 0)
+                {
+                    user = userService.GetUserByID(userId);
+                }
+
+            }
+        }
+    }
+    private void RefreshLayout()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+    public void Dispose()
+    {
+        AuthState.OnChange -= RefreshLayout;
+    }
+
+    private async Task SignOut()
+    {
+        AuthState.SetLoginState(false);
+        await authService.Logout();
+        NavManager.NavigateTo("/", true);
+    }
+}

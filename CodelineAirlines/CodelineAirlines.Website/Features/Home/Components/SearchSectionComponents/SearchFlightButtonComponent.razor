@@ -1,0 +1,31 @@
+﻿@inject NavigationManager navManager
+
+<MudItem xs="12" sm="12" md="1" Align="Align.Center">
+    <MudButton Variant="Variant.Filled" Color="Color.Warning"
+    OnClick="FindFlights"
+    Disabled="@homePageState.destEmpty">
+        Search Flights
+    </MudButton>
+</MudItem>
+
+@code {
+    [CascadingParameter]
+    public HomePageState homePageState { get; set; }
+    protected override void OnInitialized()
+    {
+        homePageState.OnChange += async () => await InvokeAsync(StateHasChanged);
+    }
+    private void FindFlights()
+    {
+        if (string.IsNullOrWhiteSpace(homePageState.FromLocation?.AirportName) || string.IsNullOrWhiteSpace(homePageState.ToLocation?.AirportName))
+        {
+            Console.WriteLine("Please fill in all fields before searching.");
+        }
+        else
+        {
+            var startDate = homePageState._dateRange.Start?.ToString("yyyy-MM-dd");
+            var endDate = homePageState._dateRange.End?.ToString("yyyy-MM-dd");
+            navManager.NavigateTo($"/flights?origin={homePageState.FromLocation.AirportName}&dest={homePageState.ToLocation.AirportName}&startdate={startDate}&enddate={endDate}");
+        }
+    }
+}

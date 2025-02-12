@@ -1,0 +1,65 @@
+﻿@inject NavigationManager navManager
+<div class="card-container">
+    @foreach (var flight in homePageState.flights)
+    {
+        count++;
+        string imgSrc = $"IMG{count}.jpg";   // Example image name
+        string route = $"{flight.SourceAirportName} to {flight.DestinationAirportName}";
+        <MudCard Class="card-item">
+            <MudCardMedia Image="@imgSrc" Title="@flight.SourceAirportName" Class="card-image" />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">@route</MudText>
+                <MudText Typo="Typo.body2">@flight.ScheduledDepartureDate.ToString("dd / MM / yyyy")</MudText>
+                <MudText Typo="Typo.h6">From OMR @flight.Cost</MudText>
+                <MudButton Color="Color.Info"
+                OnClick="@(() => OnBookButtonClick(flight.FlightNo))">
+                    Book now
+                </MudButton>
+            </MudCardContent>
+        </MudCard>
+
+        @* Limit to 4 flights in this sample *@
+        if (count == 4)
+        {
+            count = 0;
+            break;
+        }
+    }
+</div>
+
+@code {
+
+    [CascadingParameter]
+    public HomePageState homePageState { get; set; }
+    private int count = 0;
+    private void OnBookButtonClick(int flightNo)
+    {
+        navManager.NavigateTo($"/book-flight/{flightNo}");
+    }
+}
+
+<style>
+    .card-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 20px;
+        padding: 0;
+    }
+
+    .card-item {
+        width: 300px;
+        margin: 0;
+        background-color: rgba(244, 244, 244, 0.98);
+        backdrop-filter: blur(5px);
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .card-image {
+        height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+</style>

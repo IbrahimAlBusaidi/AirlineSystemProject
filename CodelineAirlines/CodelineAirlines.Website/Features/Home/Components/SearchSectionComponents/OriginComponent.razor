@@ -1,0 +1,43 @@
+﻿<MudItem xs="12" sm="6" md="3">
+    <MudSelect T="AirportOutputDTO"
+    Value="homePageState.FromLocation"
+    Variant="Variant.Filled"
+    Label="Origin"
+    Margin="Margin.None"
+    Dense="false"
+    Disabled="false"
+    ReadOnly="false"
+    Placeholder="Select origin"
+    ValueChanged="OnOriginSelected">
+        @foreach (var airport in homePageState.airportsOrigin)
+        {
+            string choiceItem = $"{airport.City}, {airport.Country}, {airport.AirportName}";
+            <MudSelectItem Value="airport">@choiceItem</MudSelectItem>
+        }
+    </MudSelect>
+</MudItem>
+
+@code {
+    [CascadingParameter]
+    public HomePageState homePageState { get; set; }
+
+    protected override void OnInitialized()
+    {
+        homePageState.OnChange += async () => await InvokeAsync(StateHasChanged);
+    }
+    private void OnOriginSelected(AirportOutputDTO airport)
+    {
+        if (airport != null)
+        {
+            homePageState.FromLocation = airport;
+            homePageState.airportsDest = homePageState.airports.Where(a => a.AirportName != homePageState.FromLocation.AirportName).ToList();
+            homePageState.originEmpty = false;
+            Console.WriteLine($"Origin selected: {homePageState.FromLocation.City}, {homePageState.FromLocation.Country}, {homePageState.FromLocation.AirportName}");
+        }
+        else
+        {
+            homePageState.originEmpty = true;
+            homePageState.airportsDest = homePageState.airports; // reset
+        }
+    }
+}

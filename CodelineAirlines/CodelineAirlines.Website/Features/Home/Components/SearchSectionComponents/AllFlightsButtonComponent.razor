@@ -1,0 +1,14 @@
+﻿@inject NavigationManager navManager
+<MudItem xs="12" sm="12" md="1" Align="Align.Center">
+    <MudButton Variant="Variant.Filled" Color="Color.Tertiary"
+               OnClick="ViewAllFlights">
+        All Flights
+    </MudButton>
+</MudItem>
+
+@code {
+    private void ViewAllFlights()
+    {
+        navManager.NavigateTo("/flights");
+    }
+}

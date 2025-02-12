@@ -1,0 +1,55 @@
+﻿@page "/"
+
+@inject IFlightService flightService
+@inject IAirportService airportService
+@inject NavigationManager navManager
+
+@attribute [AllowAnonymous]
+
+<PageTitle>Home</PageTitle>
+
+<!-- 1) Carousel Section-->
+<CarouselSection />
+
+<CascadingValue Value="homePageState">
+<!-- 2) Flight Search Section-->
+    <SearchSection />
+
+<!-- 3) TRENDING DESTINATIONS -->
+    <TrendingDestinationsTitleSection />
+
+<!-- 4) FLIGHTS SECTION -->
+    <TrendingDestinationCardsSection />
+</CascadingValue>
+@code {
+
+    private HomePageState homePageState = new();
+
+    protected override void OnInitialized()
+    {
+        homePageState.airports = airportService.GetAllAirports();
+        homePageState.airportsOrigin = homePageState.airports.ToList();
+        homePageState.flights = flightService.GetAllFlights();
+    }
+}
+
+<style>
+@@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fade-in-panel {
+    animation: fadeInUp 0.6s ease-in-out forwards;
+    opacity: 0;
+}
+body {
+    margin-top: -64px;
+    height: 100vh;
+}
+</style>

@@ -1,0 +1,55 @@
+﻿<div class="carousel-item-content">
+    <MudImage Src="/Images/LandscapePic9.jpg" Class="carousel-image" />
+    <div class="text-overlay">
+        <h2>On Time, Every Time.</h2>
+    </div>
+</div>
+
+<style>
+    .carousel-item-content {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+    }
+
+    /* The image inside each carousel item */
+    .carousel-image {
+        width: 100%;
+        height: 500px;
+        object-fit: fill;
+        display: block;
+    }
+
+    /* Fade out bottom portion of the image */
+    .carousel-item-content::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 20%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #ffffff 100%);
+        pointer-events: none;
+    }
+
+    /* Overlay text fade/slide up */
+    .text-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #fff;
+        margin: 0 20px;
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards;
+        animation-delay: 0.3s;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+        .text-overlay h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+</style>

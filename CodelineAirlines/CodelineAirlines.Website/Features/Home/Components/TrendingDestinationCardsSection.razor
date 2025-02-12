@@ -1,0 +1,11 @@
+﻿<MudContainer>
+    <CascadingValue Value="homePageState">
+        <FlightCardsComponent />
+    </CascadingValue>
+</MudContainer>
+
+@code
+{
+    [CascadingParameter]
+    public HomePageState homePageState { get; set; }
+}
