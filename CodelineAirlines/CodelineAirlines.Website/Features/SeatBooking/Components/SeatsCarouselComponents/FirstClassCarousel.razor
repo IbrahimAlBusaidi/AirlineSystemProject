@@ -1,0 +1,33 @@
+﻿<MudText Typo="Typo.h6">First Class</MudText>
+<MudCarousel Class="mud-width-full" Style="height:200px; color:#546E7A" ShowArrows="false" ShowBullets="true" EnableSwipeGesture="true" AutoCycle="true" TData="object">
+    <MudCarouselItem Transition="Transition.Fade" Color="@Color.Primary">
+        <div class="d-flex" style="height:100%">
+            <MudImage Src="/Images/first1.jpg" Class="carousel-image" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="Transition.Fade" Color="@Color.Secondary">
+        <div class="d-flex" style="height:100%">
+            <MudImage Src="/Images/first2.jpg" Class="carousel-image" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="Transition.Fade">
+        <div class="d-flex" style="height:100%">
+            <MudImage Src="/Images/first3.jpg" Class="carousel-image" />
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+
+<style>
+    .carousel-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .carousel img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+</style>

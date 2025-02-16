@@ -1,0 +1,52 @@
+﻿@page "/seatBooking"
+
+@inject NavigationManager NavigationManager
+@inject AppState appState
+@attribute [Authorize(Roles = "user")]
+
+<MudDrawerContainer>
+    <CascadingValue Value="flightNo">
+        <CascadingValue Value="appState">
+
+                <!-- Selected Seats Section -->
+                <SelectedSeatsSection/>
+
+                <!-- Classes Carousel Section -->
+                <SeatsCarouselSection />
+
+                <!-- Seat Selection Map -->
+                <SeatMapSection />
+
+        </CascadingValue>
+    </CascadingValue>
+</MudDrawerContainer>
+
+@code {
+
+    private int flightNo { get; set; }
+    protected override void OnInitialized()
+    {
+        appState.PropertyChanged += (sender, e) => StateHasChanged();
+
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        flightNo = int.Parse(queryParams["flightNo"]);
+    }
+}
+
+
+<style>
+    body {
+        background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('/images/seatmap.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+    }
+
+    .layout-container {
+        display: flex;
+        gap: 20px;
+        height: 100%;
+    }
+</style>

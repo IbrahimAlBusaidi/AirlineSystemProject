@@ -1,0 +1,122 @@
+﻿<div class="seat-class">
+    <MudText Typo="Typo.h6" Style="text-align:center">@seatClass.Key</MudText>
+    @foreach (var row in seatClass.Value)
+    {
+        <div class="seat-row">
+            @foreach (var seat in row)
+            {
+                var seatClassName = $"seat-icon {GetSeatClass(seat.SeatLocation)} {(IsSeatAvailable(seat.SeatNumber) ? "" : "unavailable-seat")}";
+
+                @if (seat.SeatLocation == -1)
+                {
+                    <div class="aisle"></div>
+                }
+                else
+                {
+                    <MudToggleIconButton Toggled="@GetSeatStatus(seat.SeatNumber)"
+                    ToggledChanged="@(value => UpdateSeatStatus(seat, value))"
+                    Icon="@Icons.Material.Filled.EventSeat"
+                    Color="Color.Default"
+                    ToggledIcon="@Icons.Material.Filled.EventSeat"
+                    ToggledColor="Color.Warning"
+                    Disabled="!IsSeatAvailable(seat.SeatNumber)"
+                    Class="@seatClassName" />
+                }
+            }
+        </div>
+    }
+</div>
+<MudDivider DividerType="DividerType.FullWidth" Light />
+
+@code {
+    [CascadingParameter]
+    public KeyValuePair<string, List<List<SeatTemplate>>> seatClass { get; set; }
+    [CascadingParameter]
+    public AppState appState { get; set; }
+    [CascadingParameter]
+    public List<SeatsOutputDTO> availableSeats { get; set; }
+
+    private void UpdateSeatStatus(SeatTemplate seat, bool status)
+    {
+        if (status)
+        {
+            if (appState.PassengerSelectedSeats.Count < appState.PassengersInput.Count)
+            {
+                appState.AddSeat(seat);
+            }
+        }
+        else
+        {
+            appState.RemoveSeat(seat);
+        }
+    }
+
+    private bool GetSeatStatus(string seatNumber)
+    {
+        return appState.PassengerSelectedSeats.Any(s => s.SeatNumber == seatNumber);
+    }
+
+    private bool IsSeatAvailable(string seatNumber)
+    {
+        return availableSeats.Any(seat => seat.SeatNumber == seatNumber);
+    }
+
+    private string GetSeatClass(int seatLocation)
+    {
+        return seatLocation switch
+        {
+            0 => "window-seat",
+            1 => "aisle-seat",
+            2 => "middle-seat",
+            _ => "unknown-seat"
+        };
+    }
+}
+
+<style>
+    .seat-row {
+        display: flex;
+        justify-content: space-evenly; /* Center-align seats */
+        gap: 10px; /* Space between groups of seats and aisles */
+        margin-bottom: 1px;
+    }
+
+    .seat-class {
+        margin-bottom: 30px;
+    }
+
+    .seat-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #ccc;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+
+    .unavailable-seat {
+        background-color: #b0bec5; /* Light grey for unavailable seats */
+        cursor: not-allowed; /* Show a "not allowed" cursor */
+        opacity: 0.6; /* Make it look faded */
+    }
+
+    .window-seat {
+        background-color: #3949AB;
+    }
+
+    .aisle-seat {
+        background-color: #303F9F;
+    }
+
+    .middle-seat {
+        background-color: #1A237E;
+    }
+
+    .aisle {
+        width: 20px;
+        background-color: #FFD180;
+    }
+</style>

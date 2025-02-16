@@ -35,7 +35,6 @@
     private void NavigateToSeatBooking()
     {
         appState.PassengersInput.AddRange(bookingState.PassengerList);
-        appState.NotifyStateChanged();
         NavManager.NavigateTo($"/seatBooking?flightNo={FlightNo}");
     }
 

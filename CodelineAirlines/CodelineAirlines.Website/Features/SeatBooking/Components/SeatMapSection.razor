@@ -1,0 +1,145 @@
+﻿@inject IAirplaneSpecService airplaneSpecService
+@inject ICompoundService compoundService
+@inject IFlightService flightService
+
+<MudMainContent Class="seat-map" Style="color:#546E7A">
+    <div class="seat-layout">
+
+        <MudText Typo="Typo.h5"> Select Seats</MudText>
+        <MudDivider />
+        @foreach (var seatClass in seatLayoutByClass)
+        {
+            <CascadingValue Value="seatClass">
+                <CascadingValue Value="appState">
+                    <CascadingValue Value="availableSeats">
+                        <SeatsByClassComponent/>
+                    </CascadingValue>
+                </CascadingValue>
+            </CascadingValue>
+        }
+    </div>
+</MudMainContent>
+
+@code
+{
+    [CascadingParameter]
+    public AppState appState { get; set; }
+    [CascadingParameter]
+    public int flightNo { get; set; }
+
+    private Airplane airplane { get; set; }
+    private AirplaneSpecs airplaneSpecs { get; set; }
+    private List<SeatsOutputDTO> availableSeats = new List<SeatsOutputDTO>();
+    private List<SeatTemplate> seats = new List<SeatTemplate>();
+    private List<(SeatTemplate seat, bool status)> seatStatuses = new List<(SeatTemplate seat, bool status)>();
+    private Dictionary<string, List<List<SeatTemplate>>> seatLayoutByClass = new();
+
+    protected override void OnInitialized()
+    {
+        appState.PropertyChanged += (sender, e) => StateHasChanged();
+        try
+        {
+            var flight = flightService.GetFlightByIdWithRelatedData(flightNo);
+
+            airplane = flight.Airplane;
+
+            airplaneSpecs = airplaneSpecService.GetSpecsByModelWithRelatedData(airplane.AirplaneModel);
+
+            if (airplaneSpecs?.Seats != null)
+            {
+                availableSeats = compoundService.GetAvailableSeats(flightNo);
+                seats = airplaneSpecs.Seats.OrderBy(s => int.Parse(new string(s.SeatNumber.TakeWhile(char.IsDigit).ToArray()))).ToList();
+
+                // Initialize seatStatuses
+                foreach (var seat in seats)
+                {
+                    seatStatuses.Add((seat, false));
+                }
+
+                // Group seats by type (First Class, Business, Economy) and sort order
+                var seatsByClass = seats.GroupBy(s => s.Type)
+                                        .OrderBy(s => GetClassPriority(s.Key));
+
+                // Organize layout for each class
+                foreach (var seatClass in seatsByClass)
+                {
+                    var classLayout = new List<List<SeatTemplate>>();
+
+                    // Group seats into rows based on SeatNumber
+                    var rows = seatClass.GroupBy(s => int.Parse(new string(s.SeatNumber.TakeWhile(char.IsDigit).ToArray())));
+
+                    foreach (var row in rows)
+                    {
+                        var rowSeats = new List<SeatTemplate>();
+                        int lastSeatLocation = -1;
+                        foreach (var seat in row.OrderBy(s => s.SeatNumber))
+                        {
+                            // Add an aisle if there's a gap between seat locations
+                            if (lastSeatLocation == 1 && seat.SeatLocation == 1)
+                            {
+                                rowSeats.Add(new SeatTemplate { SeatLocation = -1 });
+                            }
+
+                            rowSeats.Add(seat);
+                            lastSeatLocation = seat.SeatLocation;
+                        }
+
+                        classLayout.Add(rowSeats);
+                    }
+                    seatLayoutByClass[seatClass.Key] = classLayout;
+                }
+
+                Console.WriteLine($"Initialized seat layout for {seatLayoutByClass.Count} classes.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex.Message);
+        }
+    }
+
+    private int GetClassPriority(string seatClass)
+    {
+        return seatClass switch
+        {
+            "First Class" => 1,
+            "Business" => 2,
+            "Economy" => 3,
+            _ => 4
+        };
+    }
+
+    
+}
+
+ <style>
+    .seat-map {
+        position: fixed !important;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        left: 25%;
+        right: 25%;
+        backdrop-filter: blur(15px);
+        color: black;
+        padding: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        overflow-y: auto;
+        height: 90%;
+        width: 50%;
+    }
+
+    
+    .seat-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin: 20px auto;
+        width: 700px;
+        padding: 50px;
+        border-left: solid;
+        border-right: solid;
+        border-color: #FFB74D;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 1);
+    }
+ </style>

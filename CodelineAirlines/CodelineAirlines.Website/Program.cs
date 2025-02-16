@@ -88,7 +88,7 @@ builder.Services.AddHttpClient<AirportAdditionService>();
 builder.Services.AddScoped<SeatSelectionService>();
 builder.Services.AddMudServices();
 
-builder.Services.AddScoped<AppState>();
+builder.Services.AddSingleton<AppState>();
 builder.Services.AddScoped<AuthState>();
 builder.Services.AddSingleton<HomePageState>();
 builder.Services.AddScoped<BookingState>();

@@ -28,7 +28,6 @@
     <Folder Include="Features\AddFLightPassengers\Components\PassengerInfoCarouselComponents\" />
     <Folder Include="Features\ClientProfile\" />
     <Folder Include="Features\FlightBooking\Components\FlightCarouselSectionComponent\" />
-    <Folder Include="Features\SeatBooking\" />
     <Folder Include="Theme\" />
   </ItemGroup>
 

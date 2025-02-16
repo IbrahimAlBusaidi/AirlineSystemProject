@@ -1,0 +1,71 @@
+﻿@inject NavigationManager NavigationManager
+@inject IMapper mapper
+@inject SeatSelectionService SeatSelectionService
+
+<MudDrawer Open="true" Anchor="Anchor.End" Elevation="1" OverlayAutoClose="false" Class="fixed-drawer" Style="height:90%; width: 15%; color:#546E7A">
+    <MudDrawerHeader>
+        <MudText Typo="Typo.h6">Selected Seats</MudText>
+    </MudDrawerHeader>
+    <MudCard Class="drawerCard">
+        <MudCardContent>
+            <MudList T="string">
+                @foreach (var seat in appState.PassengerSelectedSeats)
+                {
+                    var seatDTO = mapper.Map<SeatsOutputDTO>(seat);
+                    string text = $"{seatDTO.SeatNumber} | {seatDTO.Type} | {seatDTO.SeatLocation}";
+                    <MudListItem Text="@text" Icon="@Icons.Material.Filled.EventSeat" />
+                    <MudDivider DividerType="DividerType.FullWidth" Light />
+                }
+            </MudList>
+        </MudCardContent>
+        <MudCardActions Style="align-self: center;">
+            <MudButton Color="Color.Primary" OnClick="@ConfirmSeats" Disabled="@appState.notValidSeats">Confirm</MudButton>
+            <MudButton Color="Color.Secondary" OnClick="@GoBack">Return</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudDrawer>
+
+@code
+{
+    [CascadingParameter]
+    public AppState appState { get; set; } // Stores selected seats
+    [CascadingParameter]
+    public string flightNo { get; set; }
+
+    protected override void OnInitialized()
+    {
+        appState.PropertyChanged += (sender, e) => StateHasChanged();
+    }
+
+    private void ConfirmSeats()
+    {
+        SeatSelectionService.SetSelectedSeats(appState.PassengerSelectedSeats);
+        NavigationManager.NavigateTo($"/confirmBooking/{flightNo}");
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/flights");
+    }
+}
+
+<style>
+    .drawerCard {
+        flex-grow: 1; /* Fills remaining space after actions */
+        overflow-y: auto; /* Enables scrolling if content exceeds height */
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .fixed-drawer {
+        position: fixed !important; /* Keeps the drawer fixed */
+        top: 75px; /* Offset to allow space for a header/navbar */
+        margin-right: 25px; /* Adds spacing from the right edge */
+        z-index: 1050; /* Keeps it above other elements */
+        overflow-y: auto; /* Allows scrolling for content overflow */
+        border-radius: 10px; /* Smooth rounded corners */
+        backdrop-filter: blur(15px);
+        background-color: rgba(255, 255, 255, 0.1); /* Match MudBlazor theme */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds subtle shadow */
+        padding: 10px; /* Adds inner spacing for better content display */
+    }
+</style>
