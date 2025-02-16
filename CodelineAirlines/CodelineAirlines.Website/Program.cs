@@ -91,6 +91,7 @@ builder.Services.AddMudServices();
 builder.Services.AddScoped<AppState>();
 builder.Services.AddScoped<AuthState>();
 builder.Services.AddSingleton<HomePageState>();
+builder.Services.AddScoped<BookingState>();
 // Add JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 builder.Services.AddSingleton(jwtSettings);

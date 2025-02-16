@@ -1,0 +1,46 @@
+﻿@inject AppState appState
+@inject NavigationManager NavManager
+<MudItem xs="12" Class="d-flex justify-center mt-6">
+    <MudButton Variant="Variant.Filled"
+    Color="Color.Primary"
+    Class="mx-2"
+    ButtonType="ButtonType.Submit"
+    Size="Size.Medium">
+        Add Passenger
+    </MudButton>
+    <MudButton Variant="Variant.Filled"
+    Size="Size.Medium"
+    Color="Color.Tertiary"
+    Class="mx-2"
+    Disabled="@bookingState.isPassengerListEmpty"
+    OnClick="NavigateToSeatBooking">
+        CHOOSE YOUR SEAT
+    </MudButton>
+    <MudButton Variant="Variant.Outlined"
+    Color="Color.Secondary"
+    Class="mx-2"
+    OnClick="NavigateBack"
+    Size="Size.Medium">
+        Cancel
+    </MudButton>
+</MudItem>
+
+@code
+{
+    [CascadingParameter]
+    public BookingState bookingState { get; set; }
+    [CascadingParameter]
+    public string FlightNo { get; set; }
+
+    private void NavigateToSeatBooking()
+    {
+        appState.PassengersInput.AddRange(bookingState.PassengerList);
+        appState.NotifyStateChanged();
+        NavManager.NavigateTo($"/seatBooking?flightNo={FlightNo}");
+    }
+
+    private void NavigateBack()
+    {
+        NavManager.NavigateTo("/flights");
+    }
+}

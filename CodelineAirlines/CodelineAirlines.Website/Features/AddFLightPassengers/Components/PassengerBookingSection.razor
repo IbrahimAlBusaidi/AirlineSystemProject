@@ -1,0 +1,106 @@
+﻿@inject IPassengerService passengerService
+@inject IUserService userService
+@inject IHttpContextAccessor httpContextAccessor
+@inject IMapper mapper
+@inject AppState appState
+
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="pa-6 main-container" Style="min-height: 100vh; color:#546E7A">
+    <MudText Typo="Typo.h4" Class="mb-6 text-center">Booking Flight @FlightNo</MudText>
+
+    <!-- FLEX LAYOUT: TABS (LEFT) | PASSENGER LIST (RIGHT) -->
+    <div class="d-flex justify-content-between align-items-start" style="min-height: 100vh;">
+
+        <!-- LEFT: TABS for New/Existing Passenger -->
+        <CascadingValue Value="bookingState">
+            <CascadingValue Value="FlightNo">
+                <PassengerAdditionComponent />
+            
+        <!-- RIGHT: PASSENGER LIST -->
+                <PassengersListComponent />
+            </CascadingValue>
+        </CascadingValue>
+    </div>
+</MudContainer>
+
+@code {
+    [CascadingParameter]
+    public string FlightNo { get; set; }
+
+    private BookingState bookingState { get; set; } = new();
+    
+    private bool isPassengerListEmpty = true;
+
+    // Services / Auth
+    public int userId { get; set; }
+    
+    private string? Token;
+    private User user = new();
+
+    protected override void OnInitialized()
+    {
+        // Clear any previous passenger or seat selections
+        appState.PassengersInput.Clear();
+        appState.SelectedSeats.Clear();
+        GetPassengerProfile();
+    }
+
+    private void GetPassengerProfile()
+    {
+        Token = httpContextAccessor.HttpContext?.Request.Cookies["authToken"];
+        if (!string.IsNullOrWhiteSpace(Token))
+        {
+            var claims = JwtHelper.GetClaimsFromToken(Token);
+            if (claims != null)
+            {
+                userId = int.Parse(claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                user = userService.GetUserByIdWithRelatedData(userId);
+
+                // Retrieve passenger profiles for the logged-in user
+                bookingState.passengers = passengerService.GetPassengerProfile(userId);
+            }
+        }
+    }
+}
+
+<style>
+    .fade-in-panel {
+        animation: fadeInUp 0.5s ease-in-out forwards;
+        opacity: 0;
+    }
+    .mb-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .mb-6 {
+        margin-bottom: 2rem !important;
+    }
+
+    .mt-4 {
+        margin-top: 1.5rem !important;
+    }
+
+    .mt-6 {
+        margin-top: 2rem !important;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .main-container {
+        margin: -120px auto 50px; /* Overlaps carousel. Adjust as needed. */
+        padding: 30px;
+        max-width: 1200px;
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+</style>

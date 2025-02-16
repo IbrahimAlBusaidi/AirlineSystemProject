@@ -1,0 +1,57 @@
+﻿<div class="w-50 fade-in-panel" style="max-height: 80vh; overflow-y: auto;">
+    <MudText Typo="Typo.h5" Class="mb-4 text-center">Passengers</MudText>
+    @if (bookingState.PassengerList.Count > 0)
+    {
+        <MudTable Items="bookingState.PassengerList" Dense="true" Hover="true">
+            <HeaderContent>
+                <MudTh>Name</MudTh>
+                <MudTh>Passport</MudTh>
+                <MudTh>Gender</MudTh>
+                <MudTh>Birth Date</MudTh>
+                <MudTh>Nationality</MudTh>
+                <MudTh>Actions</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@context.PassengerName</MudTd>
+                <MudTd>@context.Passport</MudTd>
+                <MudTd>@context.Gender</MudTd>
+                <MudTd>@context.BirthDate.ToDateTime(TimeOnly.MinValue).ToString("dd/MM/yyyy")</MudTd>
+                <MudTd>@context.Nationality</MudTd>
+                <MudTd>
+                    <MudButton Icon="Icons.Material.Filled.Delete"
+                    Color="Color.Error"
+                    OnClick="@(() => RemovePassenger(context))">
+                        Remove
+                    </MudButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+    else
+    {
+        <MudText Typo="Typo.body1" Color="Color.Secondary" Class="text-center">
+            No passengers added yet.
+        </MudText>
+    }
+</div>
+
+@code{
+    [CascadingParameter]
+    public string FlightNo { get; set; }
+    [CascadingParameter]
+    public BookingState bookingState { get; set; }
+
+    protected override void OnInitialized()
+    {
+        bookingState.PropertyChanged += (sender, e) => StateHasChanged();
+    }
+    private void RemovePassenger(PassengerInputDTOs passenger)
+    {
+        bookingState.RemovePassenger(passenger);
+        if (bookingState.PassengerList.Count == 0)
+        {
+            bookingState.isPassengerListEmpty = true;
+        }
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,133 @@
+﻿<MudItem xs="12">
+    <MudSelect T="PassengerOutputDTO"
+               Label="Select Passenger"
+               FullWidth="true"
+               Value="selectedPassenger"
+               Required="true"
+               ValueChanged="OnPassengerSelected"
+               Placeholder="Select Passenger"
+               Converter="new Converter()">
+        @foreach (var passenger in bookingState.passengers)
+        {
+            <MudSelectItem Value="@passenger">
+                Name: @passenger.PassengerName | Passport: @passenger.Passport
+            </MudSelectItem>
+        }
+    </MudSelect>
+</MudItem>
+
+<MudPaper Class="pa-4 mb-8 w-40 fade-in-panel" Elevation="4" Style="height: 100%;">
+    <EditForm Model="@modelOut" OnValidSubmit="AddExistingPassenger">
+        <DataAnnotationsValidator />
+        <MudText Typo="Typo.h5" Class="mb-4">Passenger Information</MudText>
+
+        <!-- Passenger Name -->
+        <MudTextField Label="Passenger Name"
+                      @bind-Value="modelOut.PassengerName"
+                      ReadOnly="true"
+                      Required="true"
+                      Class="mb-3" />
+
+        <!-- Passport Number -->
+        <MudTextField Label="Passport Number"
+                      @bind-Value="modelOut.Passport"
+                      ReadOnly="true"
+                      Required="true"
+                      Class="mb-3" />
+
+        <!-- Gender -->
+        <MudSelect T="string"
+                   Label="Gender"
+                   @bind-Value="modelOut.Gender"
+                   ReadOnly="true"
+                   Required="true"
+                   Class="mb-3">
+            <MudSelectItem Value="@gender[0]">Male</MudSelectItem>
+            <MudSelectItem Value="@gender[1]">Female</MudSelectItem>
+        </MudSelect>
+
+        <!-- Birth Date -->
+        <MudDatePicker Label="Date of Birth"
+                       @bind-Date="pickedDateForExisting"
+                       ReadOnly="true"
+                       Required="true"
+                       Class="mb-3" />
+
+        <!-- Nationality -->
+        <MudTextField Label="Nationality"
+                      @bind-Value="modelOut.Nationality"
+                      ReadOnly="true"
+                      Required="true"
+                      Class="mb-3" />
+
+        <!-- Flight No -->
+        <MudText Typo="Typo.h6" Class="mt-4 mb-4">
+            Selected Flight: @FlightNo
+        </MudText>
+
+        <!-- BUTTONS -->
+        <CascadingValue Value="FlightNo">
+            <CascadingValue Value="bookingState">
+                <ButtonsPart />
+            </CascadingValue>
+        </CascadingValue>
+    </EditForm>
+</MudPaper>
+
+@code
+{
+    [CascadingParameter]
+    public string FlightNo { get; set; }
+    [CascadingParameter]
+    public BookingState bookingState { get; set; }
+    bool success;
+    public string[] gender = new string[2] { "Male", "Female" };
+    private PassengerInputDTOs model = new();
+    private DateTime? pickedDate = null;
+    private DateTime? pickedDateForExisting = null;
+
+
+    private PassengerOutputDTO selectedPassenger = new();
+
+    private PassengerOutputDTO modelOut = new();
+    public class Converter : MudBlazor.Converter<PassengerOutputDTO>
+    {
+        public Converter()
+        {
+            SetFunc = passenger => passenger is not null ? $"{passenger.PassengerName} - {passenger.Passport}" : "";
+            GetFunc = str => new PassengerOutputDTO { PassengerName = str.Split(" - ")[0], Passport = str.Split(" - ")[1] };
+        }
+    }
+    private void OnPassengerSelected(PassengerOutputDTO passenger)
+    {
+        if (passenger != null)
+        {
+            selectedPassenger = passenger;
+            modelOut.PassengerName = passenger.PassengerName;
+            modelOut.Passport = passenger.Passport;
+            modelOut.Gender = passenger.Gender;
+            pickedDateForExisting = passenger.BirthDate.ToDateTime(TimeOnly.MinValue);
+            modelOut.Nationality = passenger.Nationality;
+        }
+    }
+
+
+
+    private void AddExistingPassenger(EditContext context)
+    {
+        success = true;
+        bookingState.AddPassenger(new PassengerInputDTOs
+            {
+                PassengerName = modelOut.PassengerName,
+                Passport = modelOut.Passport,
+                Gender = modelOut.Gender,
+                BirthDate = DateOnly.FromDateTime((DateTime)pickedDateForExisting),
+                Nationality = modelOut.Nationality
+            });
+
+        // Clear form
+        modelOut = new PassengerOutputDTO();
+        bookingState.isPassengerListEmpty = false;
+        StateHasChanged();
+    }
+}

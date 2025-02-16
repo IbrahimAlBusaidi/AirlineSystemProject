@@ -1,0 +1,82 @@
+﻿<MudPaper Class="pa-4 mb-8 w-40 fade-in-panel" Elevation="4" Style="height: 100%;">
+    <EditForm Model="@model" OnValidSubmit="AddPassenger">
+        <DataAnnotationsValidator />
+        <MudText Typo="Typo.h5" Class="mb-4">Passenger Information</MudText>
+
+        <!-- Passenger Name -->
+        <MudTextField Label="Passenger Name"
+                      @bind-Value="model.PassengerName"
+                      Required="true"
+                      Class="mb-3" />
+
+        <!-- Passport Number -->
+        <MudTextField Label="Passport Number"
+                      @bind-Value="model.Passport"
+                      Required="true"
+                      Class="mb-3" />
+
+        <!-- Gender -->
+        <MudSelect T="string"
+                   Label="Gender"
+                   @bind-Value="model.Gender"
+                   Required="true"
+                   Class="mb-3">
+            <MudSelectItem Value="@gender[0]">Male</MudSelectItem>
+            <MudSelectItem Value="@gender[1]">Female</MudSelectItem>
+        </MudSelect>
+
+        <!-- Birth Date -->
+        <MudDatePicker Label="Date of Birth"
+                       @bind-Date="pickedDate"
+                       Required="true"
+                       Class="mb-3" />
+
+        <!-- Nationality -->
+        <MudTextField Label="Nationality"
+                      @bind-Value="model.Nationality"
+                      Required="true"
+                      Class="mb-3" />
+
+        <!-- Flight No -->
+        <MudText Typo="Typo.h6" Class="mt-4 mb-4">
+            Selected Flight: @FlightNo
+        </MudText>
+
+        <!-- BUTTONS -->
+        <CascadingValue Value="FlightNo">
+            <CascadingValue Value="bookingState">
+                <ButtonsPart />
+            </CascadingValue>
+        </CascadingValue>
+    </EditForm>
+</MudPaper>
+
+@code
+{
+    [CascadingParameter]
+    public string FlightNo { get; set; }
+    [CascadingParameter]
+    public BookingState bookingState { get; set; }
+    bool success;
+    public string[] gender = new string[2] { "Male", "Female" };
+    private PassengerInputDTOs model = new();
+    private DateTime? pickedDate = null;
+
+    private void AddPassenger(EditContext context)
+    {
+        success = true;
+        bookingState.AddPassenger(new PassengerInputDTOs
+            {
+                PassengerName = model.PassengerName,
+                Passport = model.Passport,
+                Gender = model.Gender,
+                BirthDate = DateOnly.FromDateTime((DateTime)pickedDate),
+                Nationality = model.Nationality
+            });
+
+        // Clear form
+        model = new PassengerInputDTOs();
+        bookingState.isPassengerListEmpty = false;
+        StateHasChanged();
+    }
+}
