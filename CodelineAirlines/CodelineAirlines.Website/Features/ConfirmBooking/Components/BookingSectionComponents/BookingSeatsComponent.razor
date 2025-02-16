@@ -1,0 +1,17 @@
+﻿<MudList T="string">
+    @foreach (var seat in SeatSelectionService.SelectedSeats)
+    {
+        <MudListItem Icon="@Icons.Material.Filled.EventSeat">
+            <div class="d-flex">
+                <MudText>@seat.Type</MudText>
+                <MudText HtmlTag="span" Class="ml-auto">@seat.SeatNumber</MudText>
+            </div>
+        </MudListItem>
+    }
+</MudList>
+
+@code {
+    [CascadingParameter]
+    public SeatSelectionService SeatSelectionService { get; set; }
+
+}

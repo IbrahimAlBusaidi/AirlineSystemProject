@@ -1,0 +1,54 @@
+﻿@inject IPassengerService passengerService
+@inject NavigationManager NavigationManager
+@inject IBookingService bookingService
+
+<MudItem xs="12" Class="d-flex justify-center">
+    <MudButton Variant="Variant.Filled"
+    DropShadow="false"
+    Color="Color.Primary"
+    Size="Size.Large"
+    Class="mt-8"
+    OnClick="ConfirmBookings">
+        Confirm Booking
+    </MudButton>
+</MudItem>
+
+@code {
+    [CascadingParameter]
+    public List<BookingDTO> bookings { get; set; }
+    [CascadingParameter]
+    public AppState appState { get; set; }
+    [CascadingParameter]
+    public User user { get; set; }
+
+
+    public void ConfirmBookings()
+    {
+        foreach (var booking in bookings)
+        {
+            var passenger = passengerService.GetPassengerByPassport(booking.PassengerPassport);
+
+            // If passenger doesn't exist yet, add them
+            if (passenger == null)
+            {
+                passengerService.AddPassenger(
+                    appState.PassengersInput.FirstOrDefault(p => p.Passport == booking.PassengerPassport),
+                    user.UserId,
+                    false
+                );
+            }
+
+            // Book flight
+            bookingService.BookFlight(booking);
+        }
+
+        // Navigate to "bookings" page (or wherever your final step is)
+        NavigationManager.NavigateTo("/bookings");
+    }
+}
+
+<style>
+    .justify-center {
+        justify-content: center !important;
+    }
+</style>

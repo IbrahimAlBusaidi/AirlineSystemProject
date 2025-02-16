@@ -1,0 +1,40 @@
+﻿@foreach (var booking in bookings)
+{
+    <MudItem xs="12">
+        <MudTextField T="int" ReadOnly="true" Label="Flight Number" Value="@booking.FlightNo" />
+    </MudItem>
+    <MudItem xs="12">
+        <MudTextField T="string" ReadOnly="true" Label="Passenger Passport" Value="@booking.PassengerPassport" />
+    </MudItem>
+    <MudItem xs="6">
+        <MudTextField T="string" ReadOnly="true" Label="Class" Value="@booking.Class" />
+    </MudItem>
+    <MudItem xs="6">
+        <MudTextField T="string" ReadOnly="true" Label="Seat Number" Value="@booking.SeatNo" />
+    </MudItem>
+    <MudItem xs="12">
+        <MudSelect T="string" @bind-Value="@booking.Meal"
+        Variant="Variant.Filled"
+        Label="Meal"
+        Margin="Margin.Normal"
+        Dense="false"
+        Disabled="false"
+        ReadOnly="false"
+        Placeholder="Select meal"
+        Clearable="false"
+        Required="true">
+            @foreach (var meal in meals)
+            {
+                <MudSelectItem Value="meal">@meal</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+}
+
+@code {
+    [CascadingParameter]
+    public List<BookingDTO> bookings { get; set; }
+
+    [CascadingParameter]
+    public string[] meals { get; set; }
+}

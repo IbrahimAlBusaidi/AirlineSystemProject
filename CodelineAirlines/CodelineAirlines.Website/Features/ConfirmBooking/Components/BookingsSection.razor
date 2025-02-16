@@ -1,0 +1,159 @@
+﻿
+@inject IAirplaneSpecService airplaneSpecService
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IUserService userService
+@inject IMapper mapper
+@inject IFlightService flightService
+@inject SeatSelectionService SeatSelectionService
+
+
+<MudContainer Class="main-container fade-in-panel" MaxWidth="MaxWidth.Medium" Style="color:#546E7A">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Checkout</MudText>
+
+    <MudGrid Spacing="12" Class="mt-16">
+        <!-- LEFT COLUMN: Booking Info Form -->
+        <MudItem xs="7">
+            <MudText Typo="Typo.h5" GutterBottom="true">Booking info</MudText>
+            <MudGrid>
+                <CascadingValue Value="bookings">
+                    <CascadingValue Value="meals">
+                        <BookingsFormComponent/>
+                    </CascadingValue>
+                
+                <!-- Confirm bookings button -->
+                    <CascadingValue Value="appState">
+                        <CascadingValue Value="user">
+                            <ConfirmBookingButtonComponent/>
+                        </CascadingValue>
+                    </CascadingValue>
+                </CascadingValue>
+            </MudGrid>
+        </MudItem>
+
+        <!-- RIGHT COLUMN: Summary of Passengers + Selected Seats + Total Price -->
+        <MudItem xs="5">
+            <MudText Typo="Typo.h5" GutterBottom="true"></MudText>
+            <MudPaper Class="d-flex flex-column" Style="height:100%;" Outlined="true">
+                <!-- Passenger List -->
+                <CascadingValue Value="appState">
+                    <BookingPassengersListComponent/>
+                </CascadingValue>
+
+                <!-- Selected Seats -->
+                <CascadingValue Value="SeatSelectionService">
+                    <BookingSeatsComponent/>
+                </CascadingValue>
+
+                <!-- Total Price -->
+                <CascadingValue Value="totalPrice">
+                    <BookingTotalPriceComponent/>
+                </CascadingValue>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    [CascadingParameter]
+    public AppState appState { get; set; }
+    [CascadingParameter]
+    public string flightNo { get; set; }
+
+    public List<BookingDTO> bookings = new List<BookingDTO>();
+    public string[] meals = new string[5] { "Vegiterian", "Low fat", "Gluten-free", "Oriental", "Seafood" };
+    public Flight flight = new Flight();
+    public decimal totalPrice = 0;
+    public User user = new User();
+
+    const decimal EconomyClassPercentage = 0.00m;  // 0% for Economy
+    const decimal BusinessClassPercentage = 0.05m; // 5% for Business
+    const decimal FirstClassPercentage = 0.10m;    // 10% for First Class
+    const decimal SeatSelectionPercentage = 0.03m; // 3% seat selection fee
+
+    private string? Token;
+
+    protected override void OnInitialized()
+    {
+        // Retrieve user from token
+        Token = HttpContextAccessor.HttpContext?.Request.Cookies["authToken"];
+        if (!string.IsNullOrWhiteSpace(Token))
+        {
+            var claims = JwtHelper.GetClaimsFromToken(Token);
+            if (claims != null)
+            {
+                int userId = int.Parse(claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                if (userId > 0)
+                {
+                    user = userService.GetUserByIdWithRelatedData(userId);
+                }
+            }
+        }
+
+        // Get flight details
+        flight = flightService.GetFlightByIdWithRelatedData(int.Parse(flightNo));
+
+        // Prepare booking info if seat count matches passenger count
+        if (appState.PassengersInput.Count == SeatSelectionService.SelectedSeats.Count)
+        {
+            for (int i = 0; i < appState.PassengersInput.Count; i++)
+            {
+                bookings.Add(new BookingDTO
+                    {
+                        PassengerPassport = appState.PassengersInput[i].Passport,
+                        FlightNo = int.Parse(flightNo),
+                        Class = SeatSelectionService.SelectedSeats[i].Type,
+                        SeatNo = SeatSelectionService.SelectedSeats[i].SeatNumber,
+                        LoyaltyPointsToUse = 0
+                    });
+
+                // Base cost per passenger
+                totalPrice += flight.Cost;
+
+                // Additional fees based on seat type
+                if (SeatSelectionService.SelectedSeats[i].Type == "First Class")
+                {
+                    totalPrice += totalPrice * FirstClassPercentage;
+                }
+                else if (SeatSelectionService.SelectedSeats[i].Type == "Business")
+                {
+                    totalPrice += totalPrice * BusinessClassPercentage;
+                }
+
+                // Seat selection fee
+                totalPrice += totalPrice * SeatSelectionPercentage;
+            }
+        }
+    }
+}
+
+<style>
+    .main-container {
+        margin: -120px auto 50px; /* overlap the carousel */
+        padding: 30px;
+        max-width: 1200px;
+        background: rgba(255, 255, 255, 0.6); /* frosted glass style */
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 15px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .fade-in-panel {
+        animation: fadeInUp 0.5s ease-in-out forwards;
+        opacity: 0;
+    }
+
+    .d-flex {
+        display: flex !important;
+    }
+
+    .mt-16 {
+        margin-top: 4rem !important;
+    }
+
+    .ml-auto {
+        margin-left: auto !important;
+    }
+
+</style>

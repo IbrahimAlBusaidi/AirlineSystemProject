@@ -1,0 +1,13 @@
+﻿<div class="mt-auto">
+    <MudDivider />
+    <div class="d-flex pa-4">
+        <MudText>Total:</MudText>
+        <MudText Class="ml-auto"><b>@totalPrice</b></MudText>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public decimal totalPrice { get; set; }
+}
+

@@ -1,0 +1,16 @@
+﻿<MudList T="string">
+    @foreach (var passenger in appState.PassengersInput)
+    {
+        <MudListItem Icon="@Icons.Material.Filled.Person">
+            <div class="d-flex">
+                <MudText>@passenger.PassengerName</MudText>
+                <MudText HtmlTag="span" Class="ml-auto">@passenger.Passport</MudText>
+            </div>
+        </MudListItem>
+    }
+</MudList>
+
+@code {
+    [CascadingParameter]
+    public AppState appState { get; set; }
+}
