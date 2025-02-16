@@ -1,0 +1,211 @@
+﻿@page "/signin"
+
+@inject NavigationManager NavManager
+@inject IUserService UserService
+@inject IAuthService authService
+@inject AuthState AuthState
+
+@attribute [AllowAnonymous]
+
+
+
+
+<!-- 2) Sign-In Container Overlapping the Carousel -->
+<MudContainer MaxWidth="MaxWidth.Medium" Class="signin-container fade-in-panel" Style="width: 600px;">
+    <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-4">Sign In</MudText>
+
+    <MudForm @ref="form" Model="@signInModel" @bind-IsValid="@isValid" Class="signin-form">
+        <MudTextField @bind-Value="signInModel.Email" Label="Email" Required="true" />
+        <MudTextField @bind-Value="signInModel.Password" Label="Password" InputType="InputType.Password" Required="true" />
+
+        <!-- Warning Alert -->
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <MudAlert Severity="Severity.Warning" Class="mt-3">@errorMessage</MudAlert>
+        }
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   FullWidth="true"
+                   OnClick="Login"
+                   Disabled="!isValid"
+                   Class="mt-4">
+            Sign In
+        </MudButton>
+    </MudForm>
+
+    <MudText Typo="Typo.subtitle2" Class="mt-4 text-center">
+        Don't have an account? <MudLink Href="/signup">Sign Up</MudLink>
+    </MudText>
+</MudContainer>
+
+@code {
+    private SignInModel signInModel = new();
+    private MudForm form;
+    private bool isValid;
+    private string errorMessage;
+
+    private void Login()
+    {
+        form.Validate();
+        if (form.IsValid)
+        {
+            var result = UserService.login(signInModel.Email, signInModel.Password);
+            if (result != null) // success
+            {
+                errorMessage = string.Empty;
+                authService.GenerateToken(result);
+
+                if (result.UserRole == "superAdmin")
+                {
+                    AuthState.SetLoginState(true);
+                    NavManager.NavigateTo("/superAdminPortal", true);
+                }
+                else if (result.UserRole.ToLower() == "admin")
+                {
+                    AuthState.SetLoginState(true);
+                    NavManager.NavigateTo("/AdminHomePage", true);
+                }
+                else
+                {
+                    AuthState.SetLoginState(true);
+                    NavManager.NavigateTo("/", true);
+                }
+            }
+            else
+            {
+                errorMessage = "Invalid email or password. Please try again.";
+            }
+        }
+    }
+
+    public class SignInModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+}
+
+<style>
+
+
+/********************************************************
+ * CAROUSEL SECTION
+ ********************************************************/
+.carousel-container {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-carousel {
+    width: 100vw;
+    height: 500px;
+    position: relative;
+}
+
+.carousel-item-content {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Fade out bottom portion of the carousel image */
+.carousel-item-content::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #ffffff 100%);
+    pointer-events: none;
+}
+
+/* Carousel text overlay fade/slide up */
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    margin: 0 20px;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.3s;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.text-overlay h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+/********************************************************
+ * FROSTED GLASS SIGN-IN CONTAINER
+ ********************************************************/
+.signin-container {
+    /* Overlap the carousel if you like: */
+    margin: 15% auto 50px; /* Negative top margin to overlay the carousel */
+    padding: 30px;
+
+    /* Frosted glass effect */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* Inner form container for sign-in fields */
+.signin-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    margin: auto;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/********************************************************
+ * FADE-IN ANIMATION
+ ********************************************************/
+@@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-panel {
+    animation: fadeInUp 0.7s ease-in-out forwards;
+    opacity: 0;
+}
+
+/********************************************************
+ * BODY OVERRIDE
+ ********************************************************/
+body {
+    margin-top: -64px; /* Adjust if you have a pinned app bar */
+    height: 100vh;
+    /* If you want a background image behind everything, you can do so here or in your layout */
+    background-size: cover;
+    background-position: center;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('images/background.jpg');
+}
+</style>
