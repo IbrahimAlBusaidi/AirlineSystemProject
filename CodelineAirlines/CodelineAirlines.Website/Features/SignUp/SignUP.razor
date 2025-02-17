@@ -1,0 +1,264 @@
+﻿@page "/signup"
+@inject NavigationManager NavManager
+@inject IUserService UserService
+@inject IEmailService emailService
+@inject ISmsService smsService
+@attribute [AllowAnonymous]
+
+
+
+<!-- 2) Frosted-Glass Sign Up Container Overlapping the Carousel -->
+<MudContainer MaxWidth="MaxWidth.Medium" Class="signup-container fade-in-panel" Style="width: 600px;">
+    <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-4">Sign Up</MudText>
+
+    <MudForm @ref="form" Model="@signUpModel" @bind-IsValid="@isValid" Class="signup-form">
+        <MudTextField @bind-Value="signUpModel.UserName"
+                      Label="Name"
+                      Required="true"
+                      HelperText="Enter your name"
+                      Validation="new Func<string, string>(ValidateRequired)" />
+        <MudTextField @bind-Value="signUpModel.UserEmail"
+                      Label="Email"
+                      Required="true"
+                      HelperText="Enter a valid email address"
+                      Validation="new Func<string, string>(ValidateRequired)" />
+        <MudTextField @bind-Value="phoneNumber"
+                      Label="Phone"
+                      InputType="InputType.Telephone"
+                      Required="true"
+                      HelperText="Must be 8 numbers only"
+                      Validation="new Func<string, string>(ValidatePhone)" />
+        <MudTextField @bind-Value="signUpModel.Password"
+                      Label="Password"
+                      InputType="InputType.Password"
+                      Required="true"
+                      HelperText="Password must be at least 8 characters long, contains letters and numbers"
+                      Validation="new Func<string, string>(ValidatePassword)" />
+        <MudTextField @bind-Value="confirmPassword"
+                      Label="Confirm Password"
+                      InputType="InputType.Password"
+                      Required="true"
+                      HelperText="Re-enter your password to confirm"
+                      Validation="new Func<string, string>(ValidateConfirmPassword)" />
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   FullWidth="true"
+                   OnClick="Register"
+                   Disabled="!isValid"
+                   Class="mt-4">
+            Sign Up
+        </MudButton>
+    </MudForm>
+
+    <MudText Typo="Typo.subtitle2" Class="mt-4 text-center">
+        Already have an account? <MudLink Href="/signin">Sign In</MudLink>
+    </MudText>
+</MudContainer>
+
+@code {
+    private UserInputDTOs signUpModel = new();
+    private string confirmPassword;
+    private MudForm form;
+    private bool isValid;
+
+    private string? phoneNumber;
+
+    private void ValidateForm()
+    {
+        form.Validate();
+        if (form.IsValid)
+        {
+            isValid = true;
+        }
+    }
+
+    private async Task Register()
+    {
+        if (form.IsValid)
+        {
+            if (signUpModel.Password != confirmPassword)
+            {
+                Console.WriteLine("Passwords do not match!");
+                return;
+            }
+
+            signUpModel.UserRole = "user";
+            signUpModel.UserPhoneNumber = "+968" + phoneNumber;
+            var result = UserService.Register(signUpModel);
+
+            if (result) // success
+            {
+                string subject = "User Registration";
+                string message = "You have Been Registered to Codeline Airlines Successfully!";
+                await emailService.SendEmailAsync(signUpModel.UserEmail, subject, message);
+                // Optional: SMS code
+                // await smsService.SendSmsAsync(signUpModel.UserPhoneNumber, message);
+
+                NavManager.NavigateTo("/signin");
+            }
+            else
+            {
+                Console.WriteLine("Sign-up failed!");
+            }
+        }
+    }
+
+    private string ValidateRequired(string value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? "This field is required." : null;
+    }
+
+    private string ValidatePassword(string value)
+    {
+        return string.IsNullOrWhiteSpace(value) || value.Length < 8
+            ? "Password must be at least 8 characters long, contains numbers and letters"
+            : null;
+    }
+
+    private string ValidatePhone(string? value)
+    {
+        if (value == null)
+        {
+            return "Phone number must be 8 numbers.";
+        }
+        if (value.Length != 8)
+        {
+            return "Phone number must be 8 numbers.";
+        }
+        if (!int.TryParse(value, out _))
+        {
+            return "Phone number must contain numbers only";
+        }
+        return null;
+    }
+
+    private string ValidateConfirmPassword(string value)
+    {
+        return value != signUpModel.Password ? "Passwords do not match." : null;
+    }
+}
+
+<style>
+
+
+/********************************************************
+ * FADING CAROUSEL
+ ********************************************************/
+.carousel-container {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-carousel {
+    width: 100vw;
+    height: 500px;
+    position: relative;
+}
+
+.carousel-item-content {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Fade out bottom portion of the carousel image */
+.carousel-item-content::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #ffffff 100%);
+    pointer-events: none;
+}
+
+/* Overlay text fade/slide up */
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    margin: 0 20px;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.3s;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.text-overlay h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+/********************************************************
+ * SIGNUP CONTAINER (Frosted Glass)
+ ********************************************************/
+.signup-container {
+    margin: 12% auto 50px; /* Overlap the carousel by 120px */
+    padding: 30px;
+    max-width: 1200px;
+
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* The form inside the sign-up container */
+.signup-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    margin: auto;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/********************************************************
+ * FADE-IN ANIMATION
+ ********************************************************/
+@@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-panel {
+    animation: fadeInUp 0.7s ease-in-out forwards;
+    opacity: 0;
+}
+
+/********************************************************
+ * BODY OVERRIDE (Optional)
+ ********************************************************/
+body {
+        margin-top: -64px; /* Adjust if you have a pinned app bar */
+        height: 100vh;
+        /* If you want a background image behind everything, you can do so here or in your layout */
+        background-size: cover;
+        background-position: center;
+        background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('images/SignUp/background.jpg');
+
+}
+</style>

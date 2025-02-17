@@ -1,0 +1,280 @@
+﻿@page "/Profile"
+
+@inject NavigationManager NavManager
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IAuthService authService
+@inject IUserService userService
+@inject IPassengerService passengerService
+
+@* Optional if the page is only for logged-in "user" role:
+@attribute [Authorize(Roles = "user")]
+*@
+
+<!-- 1) Carousel Section (Hero at Top) -->
+<div class="carousel-container">
+    <div class="custom-carousel">
+        <div class="custom-carousel-item">
+            <!-- Replace this with your desired hero image -->
+            <img src="/Images/ClientProfile/backgroundCarousel2.jpg" class="carousel-image" />
+            <div class="text-overlay">
+                <h1 class="text-title">My Profile</h1>
+                <p class="text-subtitle">Manage Account & Passengers</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2) Main Container Overlapping the Carousel -->
+<MudContainer MaxWidth="MaxWidth.Large" Class="pa-6 main-container fade-in-panel">
+    <MudText Typo="Typo.h4" Class="mb-6 text-center">User Profile</MudText>
+
+    <!-- User Info Card -->
+    <MudCard Class="mb-4">
+        <MudCardContent>
+            <MudGrid>
+                <!-- Email Field -->
+                <MudItem xs="12" sm="6" Class="field-container">
+                    <MudGrid AlignItems="Center">
+                        <MudItem xs="4" Class="field-label">
+                            <MudText Typo="Typo.subtitle1"><strong>Email:</strong></MudText>
+                        </MudItem>
+                        <MudItem xs="8" Class="field-value">
+                            <MudText Typo="Typo.body1">@user.UserEmail</MudText>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+
+                <!-- Name Field -->
+                <MudItem xs="12" sm="6" Class="field-container">
+                    <MudGrid AlignItems="Center">
+                        <MudItem xs="4" Class="field-label">
+                            <MudText Typo="Typo.subtitle1"><strong>Name:</strong></MudText>
+                        </MudItem>
+                        <MudItem xs="8" Class="field-value">
+                            <MudText Typo="Typo.body1">@user.UserName</MudText>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+
+    <MudText Typo="Typo.h4" Class="mb-4">Passenger List</MudText>
+    <!-- Passenger List -->
+    <MudExpansionPanels>
+        @if (passengers != null && passengers.Any())
+        {
+            @foreach (var passenger in passengers)
+            {
+                <MudExpansionPanel Text="@($"{passenger.PassengerName} → {passenger.Nationality}")">
+                    <MudPaper Class="pa-4">
+                        <MudGrid>
+                            <MudItem xs="8">
+                                <MudText Typo="Typo.subtitle1"><b>Passenger Name:</b> @passenger.PassengerName</MudText>
+                                <MudText Typo="Typo.subtitle1"><b>Passport:</b> @passenger.Passport</MudText>
+                                <MudText Typo="Typo.subtitle1"><b>Gender:</b> @passenger.Gender</MudText>
+                                <MudText Typo="Typo.subtitle1"><b>Birth Date:</b> @passenger.BirthDate.ToString("dd/MM/yyyy")</MudText>
+                                <MudText Typo="Typo.subtitle1"><b>Nationality:</b> @passenger.Nationality</MudText>
+                                <MudText Typo="Typo.subtitle1"><b>Loyalty Points:</b> @passenger.LoyaltyPoints</MudText>
+                            </MudItem>
+                        </MudGrid>
+                    </MudPaper>
+                </MudExpansionPanel>
+            }
+        }
+        else
+        {
+            <MudExpansionPanel Text="No passenger found">
+                <MudText Color="Color.Secondary" Typo="Typo.body2">No passengers available at the moment.</MudText>
+            </MudExpansionPanel>
+        }
+    </MudExpansionPanels>
+</MudContainer>
+
+@code {
+    public int userId { get; set; }
+    private List<PassengerOutputDTO> passengers = new();
+    private string? Token;
+    private User user = new();
+
+    protected override void OnInitialized()
+    {
+        GetPassengerProfile();
+    }
+
+    private void GetPassengerProfile()
+    {
+        Token = HttpContextAccessor.HttpContext?.Request.Cookies["authToken"];
+        if (!string.IsNullOrWhiteSpace(Token))
+        {
+            var claims = JwtHelper.GetClaimsFromToken(Token);
+            if (claims != null)
+            {
+                userId = int.Parse(claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                user = userService.GetUserByIdWithRelatedData(userId);
+                passengers = passengerService.GetPassengerProfile(userId);
+            }
+        }
+    }
+}
+
+<style>
+
+
+    /********************************************************
+     * CORE COLORS / VARIABLES
+     ********************************************************/
+    :root {
+        --white-bg: #ffffff;
+        --accent-blue: #3B82F6;  /* lighter blue */
+        --accent-orange: #FFA500;
+        --text-color: #333333;
+        --light-gray: #f9f9f9;
+    }
+
+    /********************************************************
+     * BODY / GLOBAL
+     ********************************************************/
+    body {
+        margin-top: -64px;
+        min-height: 100vh;
+        background: var(--white-bg);
+        font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+    }
+
+    /********************************************************
+     * CAROUSEL SECTION
+     ********************************************************/
+    .carousel-container {
+        padding: 0;
+        margin: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba(59, 130, 246, 0.7),
+            rgba(255, 165, 0, 0.2)
+        );
+        position: relative;
+        overflow: hidden;
+    }
+
+    .custom-carousel {
+        width: 100vw;
+        height: 500px;
+        position: relative;
+    }
+
+    .custom-carousel-item {
+        width: 100%;
+        height: 500px;
+        position: relative;
+    }
+
+    .carousel-image {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Optional fade at the bottom of the image */
+    .custom-carousel-item::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 20%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #ffffff 100%);
+        pointer-events: none;
+    }
+
+    .text-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: var(--white-bg);
+        margin: 0 20px;
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards;
+        animation-delay: 0.3s;
+    }
+
+    .text-title {
+        font-size: 2.6rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .text-subtitle {
+        font-size: 1.4rem;
+        font-weight: 400;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /********************************************************
+     * MAIN CONTAINER (Frosted Glass)
+     ********************************************************/
+    .main-container {
+        margin: -120px auto 50px; /* Overlap the carousel at the top */
+        padding: 30px;
+        max-width: 1200px;
+
+        background: rgba(255,255,255,0.6);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+
+        border-radius: 15px;
+        box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        position: relative;
+    }
+
+    /********************************************************
+     * FADE-IN ANIMATION
+     ********************************************************/
+    @@keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-in-panel {
+        animation: fadeInUp 0.5s ease-in-out forwards;
+        opacity: 0;
+    }
+
+    /********************************************************
+     * OPTIONAL UTILITY CLASSES
+     ********************************************************/
+    .mb-4 {
+        margin-bottom: 1.5rem !important;
+    }
+    .mb-6 {
+        margin-bottom: 2rem !important;
+    }
+    .text-center {
+        text-align: center !important;
+    }
+    .text-right {
+        text-align: right !important;
+    }
+    .field-container {
+        margin-bottom: 1rem;
+    }
+    .field-label {
+        text-align: right;
+        padding-right: 1rem;
+    }
+    .field-value {
+        text-align: left;
+    }
+</style>

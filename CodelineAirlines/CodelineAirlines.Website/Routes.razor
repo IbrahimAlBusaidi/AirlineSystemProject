@@ -10,7 +10,7 @@
             </AuthorizeRouteView>
         </Found>
         <NotFound>
-            <LayoutView Layout="@typeof(Features.Shared.Layout.MainLayout)">
+            <LayoutView Layout="@typeof(MainLayout)">
                 <p>Sorry, there's nothing at this address.</p>
             </LayoutView>
         </NotFound>
@@ -18,7 +18,7 @@
 </CascadingAuthenticationState>
 
 @code {
-    private Type CurrentLayout { get; set; } = typeof(Features.Shared.Layout.MainLayout);
+    private Type CurrentLayout { get; set; } = typeof(MainLayout);
 
     protected override async Task OnInitializedAsync()
     {
@@ -31,7 +31,7 @@
         var user = authState.User;
 
         CurrentLayout = user.Identity != null && user.Identity.IsAuthenticated
-            ? typeof(Features.Shared.Layout.LoggedInLayout)
-            : typeof(Features.Shared.Layout.MainLayout);
+            ? typeof(ClientLayout)
+            : typeof(MainLayout);
     }
 }

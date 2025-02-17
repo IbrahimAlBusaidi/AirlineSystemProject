@@ -3,7 +3,7 @@
     @foreach (var flight in homePageState.flights)
     {
         count++;
-        string imgSrc = $"IMG{count}.jpg";   // Example image name
+        string imgSrc = $"/Images/Home/Trending/IMG{count}.jpg";   // Example image name
         string route = $"{flight.SourceAirportName} to {flight.DestinationAirportName}";
         <MudCard Class="card-item">
             <MudCardMedia Image="@imgSrc" Title="@flight.SourceAirportName" Class="card-image" />
