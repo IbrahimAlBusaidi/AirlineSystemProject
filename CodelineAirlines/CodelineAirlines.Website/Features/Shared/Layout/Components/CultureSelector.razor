@@ -1,0 +1,18 @@
+﻿@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@inject IStringLocalizer<CultureSelector> Localizer
+
+<select @onchange="ChangeCulture">
+    <option>Language</option>
+    <option value="en-US">English</option>
+    <option value="ar-AR">Arabic</option>
+</select>
+
+@code {
+    private async Task ChangeCulture(ChangeEventArgs e)
+    {
+        var culture = e.Value.ToString();
+        await JS.InvokeVoidAsync("localStorage.setItem", "culture", culture);
+        Navigation.NavigateTo($"?culture={culture}", forceLoad: true);
+    }
+}
