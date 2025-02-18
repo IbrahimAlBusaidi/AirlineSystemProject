@@ -1,0 +1,868 @@
+2025-02-18 11:29:43.352 +00:00 [WRN] Using an in-memory repository. Keys will not be persisted to storage.
+2025-02-18 11:29:43.433 +00:00 [WRN] Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+2025-02-18 11:29:43.511 +00:00 [INF] Creating key {cbce9b5a-d367-440d-8fb8-ba0b3b7bc9e8} with creation date 2025-02-18 11:29:43Z, activation date 2025-02-18 11:29:43Z, and expiration date 2025-05-19 11:29:43Z.
+2025-02-18 11:29:43.520 +00:00 [WRN] No XML encryptor configured. Key {cbce9b5a-d367-440d-8fb8-ba0b3b7bc9e8} may be persisted to storage in unencrypted form.
+2025-02-18 11:29:44.008 +00:00 [INF] Now listening on: http://[::]:8080
+2025-02-18 11:29:44.010 +00:00 [INF] Now listening on: https://[::]:8081
+2025-02-18 11:29:44.014 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-18 11:29:44.016 +00:00 [INF] Hosting environment: Development
+2025-02-18 11:29:44.016 +00:00 [INF] Content root path: /app
+2025-02-18 11:29:44.345 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/ - null null
+2025-02-18 11:29:44.567 +00:00 [INF] Executing endpoint '/ (/)'
+2025-02-18 11:29:47.228 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:29:47.246 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:29:47.269 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:29:47.586 +00:00 [INF] Executed endpoint '/ (/)'
+2025-02-18 11:29:47.589 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/bootstrap/bootstrap.min.css - null null
+2025-02-18 11:29:47.592 +00:00 [INF] HTTP GET / responded 200 in 3212.4350 ms
+2025-02-18 11:29:47.613 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/css/site.css - null null
+2025-02-18 11:29:47.613 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/css/app.css - null null
+2025-02-18 11:29:47.617 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - null null
+2025-02-18 11:29:47.617 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_content/MudBlazor/MudBlazor.min.css - null null
+2025-02-18 11:29:47.626 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/images/Logos/codeline-airlines-logo-no_background.png - null null
+2025-02-18 11:29:47.636 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - null null
+2025-02-18 11:29:47.669 +00:00 [INF] HTTP GET /CodelineAirlines.styles.css responded 404 in 43.0990 ms
+2025-02-18 11:29:47.670 +00:00 [INF] Executing endpoint 'Blazor web static files'
+2025-02-18 11:29:47.672 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_content/MudBlazor/MudBlazor.min.js - null null
+2025-02-18 11:29:47.698 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - 404 0 null 68.8133ms
+2025-02-18 11:29:47.728 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:8081/CodelineAirlines.styles.css, Response status code: 404
+2025-02-18 11:29:47.832 +00:00 [INF] Sending file. Request path: '/_framework/blazor.web.js'. Physical path: 'N/A'
+2025-02-18 11:29:47.835 +00:00 [INF] Executed endpoint 'Blazor web static files'
+2025-02-18 11:29:47.837 +00:00 [INF] HTTP GET /_framework/blazor.web.js responded 200 in 166.9755 ms
+2025-02-18 11:29:47.839 +00:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: '/src/CodelineAirlines.Website/wwwroot/css/site.css'
+2025-02-18 11:29:47.840 +00:00 [INF] HTTP GET /css/site.css responded 200 in 217.8294 ms
+2025-02-18 11:29:47.839 +00:00 [INF] Sending file. Request path: '/css/app.css'. Physical path: '/src/CodelineAirlines.Website/wwwroot/css/app.css'
+2025-02-18 11:29:47.840 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - 200 187457 text/javascript 202.7697ms
+2025-02-18 11:29:47.841 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/css/site.css - 200 4335 text/css 227.9068ms
+2025-02-18 11:29:47.846 +00:00 [INF] HTTP GET /css/app.css responded 200 in 220.3253 ms
+2025-02-18 11:29:47.847 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/css/app.css - 200 2591 text/css 234.0929ms
+2025-02-18 11:29:47.855 +00:00 [INF] Sending file. Request path: '/bootstrap/bootstrap.min.css'. Physical path: '/src/CodelineAirlines.Website/wwwroot/bootstrap/bootstrap.min.css'
+2025-02-18 11:29:47.857 +00:00 [INF] HTTP GET /bootstrap/bootstrap.min.css responded 200 in 256.5546 ms
+2025-02-18 11:29:47.858 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/bootstrap/bootstrap.min.css - 200 162720 text/css 268.585ms
+2025-02-18 11:29:47.861 +00:00 [INF] Sending file. Request path: '/images/Logos/codeline-airlines-logo-no_background.png'. Physical path: '/src/CodelineAirlines.Website/wwwroot/images/Logos/codeline-airlines-logo-no_background.png'
+2025-02-18 11:29:47.862 +00:00 [INF] HTTP GET /images/Logos/codeline-airlines-logo-no_background.png responded 200 in 226.7675 ms
+2025-02-18 11:29:47.863 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/images/Logos/codeline-airlines-logo-no_background.png - 200 113653 image/png 237.1654ms
+2025-02-18 11:29:47.871 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/ - 200 null text/html; charset=utf-8 3528.0121ms
+2025-02-18 11:29:47.896 +00:00 [INF] Sending file. Request path: '/_content/MudBlazor/MudBlazor.min.css'. Physical path: '/.nuget/packages/mudblazor/8.2.0/staticwebassets/MudBlazor.min.css'
+2025-02-18 11:29:47.896 +00:00 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.css responded 200 in 265.3910 ms
+2025-02-18 11:29:47.897 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_content/MudBlazor/MudBlazor.min.css - 200 595613 text/css 279.7733ms
+2025-02-18 11:29:48.082 +00:00 [INF] Sending file. Request path: '/_content/MudBlazor/MudBlazor.min.js'. Physical path: '/.nuget/packages/mudblazor/8.2.0/staticwebassets/MudBlazor.min.js'
+2025-02-18 11:29:48.083 +00:00 [INF] HTTP GET /_content/MudBlazor/MudBlazor.min.js responded 200 in 397.7645 ms
+2025-02-18 11:29:48.084 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_content/MudBlazor/MudBlazor.min.js - 200 55249 text/javascript 411.6689ms
+2025-02-18 11:29:48.106 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_blazor/initializers - null null
+2025-02-18 11:29:48.110 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:29:48.116 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:29:48.117 +00:00 [INF] HTTP GET /_blazor/initializers responded 200 in 7.7363 ms
+2025-02-18 11:29:48.119 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_blazor/initializers - 200 null application/json; charset=utf-8 12.9879ms
+2025-02-18 11:29:48.129 +00:00 [INF] Request starting HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-02-18 11:29:48.137 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:29:48.138 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:29:48.143 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:29:48.144 +00:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 7.8537 ms
+2025-02-18 11:29:48.144 +00:00 [INF] Request finished HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 15.3471ms
+2025-02-18 11:29:48.154 +00:00 [INF] Request starting HTTP/2 CONNECT https://localhost:8081/_blazor?id=DzbKZrcoSmM2kjvZd3Uf5g - null null
+2025-02-18 11:29:48.156 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:29:48.156 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:29:48.435 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:29:48.438 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:29:48.460 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:29:48.593 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic1.jpg - null null
+2025-02-18 11:29:48.893 +00:00 [INF] Sending file. Request path: '/Images/Home/Carousel/LandscapePic1.jpg'. Physical path: '/src/CodelineAirlines.Website/wwwroot/Images/Home/Carousel/LandscapePic1.jpg'
+2025-02-18 11:29:48.893 +00:00 [INF] HTTP GET /Images/Home/Carousel/LandscapePic1.jpg responded 200 in 298.7415 ms
+2025-02-18 11:29:48.894 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic1.jpg - 200 688099 image/jpeg 301.2142ms
+2025-02-18 11:29:51.573 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic2.jpg - null null
+2025-02-18 11:29:51.810 +00:00 [INF] Sending file. Request path: '/Images/Home/Carousel/LandscapePic2.jpg'. Physical path: '/src/CodelineAirlines.Website/wwwroot/Images/Home/Carousel/LandscapePic2.jpg'
+2025-02-18 11:29:51.810 +00:00 [INF] HTTP GET /Images/Home/Carousel/LandscapePic2.jpg responded 200 in 210.9548 ms
+2025-02-18 11:29:51.811 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic2.jpg - 200 987589 image/jpeg 237.5956ms
+2025-02-18 11:29:54.557 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic3.jpg - null null
+2025-02-18 11:29:54.686 +00:00 [INF] Sending file. Request path: '/Images/Home/Carousel/LandscapePic3.jpg'. Physical path: '/src/CodelineAirlines.Website/wwwroot/Images/Home/Carousel/LandscapePic3.jpg'
+2025-02-18 11:29:54.687 +00:00 [INF] HTTP GET /Images/Home/Carousel/LandscapePic3.jpg responded 200 in 122.4978 ms
+2025-02-18 11:29:54.687 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic3.jpg - 200 544331 image/jpeg 130.3338ms
+2025-02-18 11:29:57.619 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic5.jpg - null null
+2025-02-18 11:29:57.902 +00:00 [INF] Sending file. Request path: '/Images/Home/Carousel/LandscapePic5.jpg'. Physical path: '/src/CodelineAirlines.Website/wwwroot/Images/Home/Carousel/LandscapePic5.jpg'
+2025-02-18 11:29:57.902 +00:00 [INF] HTTP GET /Images/Home/Carousel/LandscapePic5.jpg responded 200 in 281.9855 ms
+2025-02-18 11:29:57.903 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic5.jpg - 200 3027341 image/jpeg 283.7274ms
+2025-02-18 11:30:00.553 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic6.jpg - null null
+2025-02-18 11:30:00.737 +00:00 [INF] Sending file. Request path: '/Images/Home/Carousel/LandscapePic6.jpg'. Physical path: '/src/CodelineAirlines.Website/wwwroot/Images/Home/Carousel/LandscapePic6.jpg'
+2025-02-18 11:30:00.738 +00:00 [INF] HTTP GET /Images/Home/Carousel/LandscapePic6.jpg responded 200 in 159.7644 ms
+2025-02-18 11:30:00.739 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic6.jpg - 200 1186974 image/jpeg 185.6047ms
+2025-02-18 11:30:03.602 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic7.jpg - null null
+2025-02-18 11:30:03.778 +00:00 [INF] Sending file. Request path: '/Images/Home/Carousel/LandscapePic7.jpg'. Physical path: '/src/CodelineAirlines.Website/wwwroot/Images/Home/Carousel/LandscapePic7.jpg'
+2025-02-18 11:30:03.778 +00:00 [INF] HTTP GET /Images/Home/Carousel/LandscapePic7.jpg responded 200 in 175.2714 ms
+2025-02-18 11:30:03.780 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic7.jpg - 200 1363875 image/jpeg 178.3997ms
+2025-02-18 11:30:06.555 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic8.jpg - null null
+2025-02-18 11:30:06.692 +00:00 [INF] Sending file. Request path: '/Images/Home/Carousel/LandscapePic8.jpg'. Physical path: '/src/CodelineAirlines.Website/wwwroot/Images/Home/Carousel/LandscapePic8.jpg'
+2025-02-18 11:30:06.692 +00:00 [INF] HTTP GET /Images/Home/Carousel/LandscapePic8.jpg responded 200 in 94.4922 ms
+2025-02-18 11:30:06.694 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic8.jpg - 200 631813 image/jpeg 139.206ms
+2025-02-18 11:30:09.557 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic9.jpg - null null
+2025-02-18 11:30:09.701 +00:00 [INF] Sending file. Request path: '/Images/Home/Carousel/LandscapePic9.jpg'. Physical path: '/src/CodelineAirlines.Website/wwwroot/Images/Home/Carousel/LandscapePic9.jpg'
+2025-02-18 11:30:09.702 +00:00 [INF] HTTP GET /Images/Home/Carousel/LandscapePic9.jpg responded 200 in 141.9043 ms
+2025-02-18 11:30:09.703 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/Images/Home/Carousel/LandscapePic9.jpg - 200 972880 image/jpeg 146.0653ms
+2025-02-18 11:32:11.462 +00:00 [WRN] Using an in-memory repository. Keys will not be persisted to storage.
+2025-02-18 11:32:11.514 +00:00 [WRN] Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+2025-02-18 11:32:11.606 +00:00 [INF] Creating key {9a5fc714-6a2d-40eb-9dd6-c1903e0e0a8d} with creation date 2025-02-18 11:32:11Z, activation date 2025-02-18 11:32:11Z, and expiration date 2025-05-19 11:32:11Z.
+2025-02-18 11:32:11.625 +00:00 [WRN] No XML encryptor configured. Key {9a5fc714-6a2d-40eb-9dd6-c1903e0e0a8d} may be persisted to storage in unencrypted form.
+2025-02-18 11:32:12.280 +00:00 [INF] Now listening on: http://[::]:8080
+2025-02-18 11:32:12.281 +00:00 [INF] Now listening on: https://[::]:8081
+2025-02-18 11:32:12.292 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-18 11:32:12.296 +00:00 [INF] Hosting environment: Development
+2025-02-18 11:32:12.298 +00:00 [INF] Content root path: /app
+2025-02-18 11:32:12.678 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/ - null null
+2025-02-18 11:32:13.051 +00:00 [INF] Executing endpoint '/ (/)'
+2025-02-18 11:32:15.191 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:32:15.219 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:32:15.256 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:32:15.567 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {cbce9b5a-d367-440d-8fb8-ba0b3b7bc9e8} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-02-18 11:32:15.642 +00:00 [INF] Executed endpoint '/ (/)'
+2025-02-18 11:32:15.648 +00:00 [INF] HTTP GET / responded 200 in 2870.0872 ms
+2025-02-18 11:32:15.687 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - null null
+2025-02-18 11:32:15.699 +00:00 [INF] HTTP GET /CodelineAirlines.styles.css responded 404 in 8.3232 ms
+2025-02-18 11:32:15.701 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - 404 0 null 13.5826ms
+2025-02-18 11:32:15.749 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - null null
+2025-02-18 11:32:15.754 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:8081/CodelineAirlines.styles.css, Response status code: 404
+2025-02-18 11:32:15.760 +00:00 [INF] Executing endpoint 'Blazor web static files'
+2025-02-18 11:32:15.769 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/ - 200 null text/html; charset=utf-8 3094.9237ms
+2025-02-18 11:32:15.770 +00:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-02-18 11:32:15.772 +00:00 [INF] Executed endpoint 'Blazor web static files'
+2025-02-18 11:32:15.773 +00:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 16.6563 ms
+2025-02-18 11:32:15.773 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - 304 null text/javascript 24.4651ms
+2025-02-18 11:32:15.949 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_blazor/initializers - null null
+2025-02-18 11:32:15.953 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:32:15.964 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:32:15.965 +00:00 [INF] HTTP GET /_blazor/initializers responded 200 in 12.0605 ms
+2025-02-18 11:32:15.967 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_blazor/initializers - 200 null application/json; charset=utf-8 17.7408ms
+2025-02-18 11:32:15.997 +00:00 [INF] Request starting HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-02-18 11:32:16.006 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:32:16.007 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:32:16.019 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:32:16.019 +00:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 14.5738 ms
+2025-02-18 11:32:16.020 +00:00 [INF] Request finished HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 22.9569ms
+2025-02-18 11:32:16.027 +00:00 [INF] Request starting HTTP/2 CONNECT https://localhost:8081/_blazor?id=7lLRFpnyzW3uskzyV-WfMg - null null
+2025-02-18 11:32:16.028 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:32:16.029 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:32:16.407 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:32:16.412 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:32:16.448 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:53:24.766 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:53:24.770 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:56:47.551 +00:00 [WRN] Using an in-memory repository. Keys will not be persisted to storage.
+2025-02-18 11:56:47.645 +00:00 [WRN] Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+2025-02-18 11:56:47.699 +00:00 [INF] Creating key {0f3a9ebb-0256-4a3c-a9cf-67a8129247d7} with creation date 2025-02-18 11:56:47Z, activation date 2025-02-18 11:56:47Z, and expiration date 2025-05-19 11:56:47Z.
+2025-02-18 11:56:47.705 +00:00 [WRN] No XML encryptor configured. Key {0f3a9ebb-0256-4a3c-a9cf-67a8129247d7} may be persisted to storage in unencrypted form.
+2025-02-18 11:56:48.151 +00:00 [INF] Now listening on: http://[::]:8080
+2025-02-18 11:56:48.155 +00:00 [INF] Now listening on: https://[::]:8081
+2025-02-18 11:56:48.159 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-02-18 11:56:48.160 +00:00 [INF] Hosting environment: Development
+2025-02-18 11:56:48.161 +00:00 [INF] Content root path: /app
+2025-02-18 11:56:48.332 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/ - null null
+2025-02-18 11:56:48.568 +00:00 [INF] Executing endpoint '/ (/)'
+2025-02-18 11:56:51.285 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:56:51.308 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:56:51.344 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:56:51.615 +00:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted.
+ ---> System.Security.Cryptography.CryptographicException: The key {9a5fc714-6a2d-40eb-9dd6-c1903e0e0a8d} was not found in the key ring. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2025-02-18 11:56:51.659 +00:00 [INF] Executed endpoint '/ (/)'
+2025-02-18 11:56:51.664 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - null null
+2025-02-18 11:56:51.670 +00:00 [INF] HTTP GET / responded 200 in 3288.2076 ms
+2025-02-18 11:56:51.685 +00:00 [INF] HTTP GET /CodelineAirlines.styles.css responded 404 in 16.3536 ms
+2025-02-18 11:56:51.706 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - null null
+2025-02-18 11:56:51.846 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - 404 0 null 154.7056ms
+2025-02-18 11:56:51.848 +00:00 [INF] Executing endpoint 'Blazor web static files'
+2025-02-18 11:56:51.853 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:8081/CodelineAirlines.styles.css, Response status code: 404
+2025-02-18 11:56:51.868 +00:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-02-18 11:56:51.870 +00:00 [INF] Executed endpoint 'Blazor web static files'
+2025-02-18 11:56:51.871 +00:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 75.2881 ms
+2025-02-18 11:56:51.873 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - 304 null text/javascript 166.3039ms
+2025-02-18 11:56:51.895 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/ - 200 null text/html; charset=utf-8 3566.0008ms
+2025-02-18 11:56:51.939 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_blazor/initializers - null null
+2025-02-18 11:56:51.946 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:51.956 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:51.957 +00:00 [INF] HTTP GET /_blazor/initializers responded 200 in 11.4588 ms
+2025-02-18 11:56:51.958 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_blazor/initializers - 200 null application/json; charset=utf-8 20.7221ms
+2025-02-18 11:56:51.970 +00:00 [INF] Request starting HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-02-18 11:56:51.975 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:56:51.977 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:51.984 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:51.985 +00:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 9.9741 ms
+2025-02-18 11:56:51.985 +00:00 [INF] Request finished HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 15.9586ms
+2025-02-18 11:56:51.990 +00:00 [INF] Request starting HTTP/2 CONNECT https://localhost:8081/_blazor?id=SuCgpTgeZNGM7JQjhAe85A - null null
+2025-02-18 11:56:51.991 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:56:51.991 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:52.336 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:56:52.338 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:56:52.355 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:56:55.289 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/?culture=ar-AR - null null
+2025-02-18 11:56:55.314 +00:00 [INF] Executing endpoint '/ (/)'
+2025-02-18 11:56:55.404 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:56:55.408 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:56:55.424 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:56:55.451 +00:00 [INF] Executed endpoint '/ (/)'
+2025-02-18 11:56:55.454 +00:00 [INF] HTTP GET / responded 200 in 140.0745 ms
+2025-02-18 11:56:55.457 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/?culture=ar-AR - 200 null text/html; charset=utf-8 167.7934ms
+2025-02-18 11:56:55.457 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - null null
+2025-02-18 11:56:55.458 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - null null
+2025-02-18 11:56:55.458 +00:00 [INF] Request starting HTTP/2 POST https://localhost:8081/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryYbJghnjGU8AGk6kn 359
+2025-02-18 11:56:55.460 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:56:55.461 +00:00 [INF] Executing endpoint 'Blazor web static files'
+2025-02-18 11:56:55.461 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:55.462 +00:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-02-18 11:56:55.462 +00:00 [INF] HTTP GET /CodelineAirlines.styles.css responded 404 in 2.3403 ms
+2025-02-18 11:56:55.463 +00:00 [INF] Executed endpoint 'Blazor web static files'
+2025-02-18 11:56:55.463 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - 404 0 null 5.8577ms
+2025-02-18 11:56:55.464 +00:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 2.5464 ms
+2025-02-18 11:56:55.464 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:8081/CodelineAirlines.styles.css, Response status code: 404
+2025-02-18 11:56:55.465 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - 304 null text/javascript 6.6361ms
+2025-02-18 11:56:55.485 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_blazor/initializers - null null
+2025-02-18 11:56:55.486 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:55.487 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:55.488 +00:00 [INF] HTTP GET /_blazor/initializers responded 200 in 1.6547 ms
+2025-02-18 11:56:55.489 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_blazor/initializers - 200 null application/json; charset=utf-8 3.3367ms
+2025-02-18 11:56:55.520 +00:00 [INF] Request starting HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-02-18 11:56:55.521 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:56:55.522 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:55.523 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:55.524 +00:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 2.9072 ms
+2025-02-18 11:56:55.526 +00:00 [INF] Request finished HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 6.4109ms
+2025-02-18 11:56:55.533 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:55.536 +00:00 [INF] Request starting HTTP/2 CONNECT https://localhost:8081/_blazor?id=KArY5d_zjQXIwVKU33LjTA - null null
+2025-02-18 11:56:55.536 +00:00 [INF] HTTP CONNECT /_blazor responded 200 in 3545.1760 ms
+2025-02-18 11:56:55.540 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:56:55.541 +00:00 [INF] Request finished HTTP/2 CONNECT https://localhost:8081/_blazor?id=SuCgpTgeZNGM7JQjhAe85A - 200 null null 3550.5574ms
+2025-02-18 11:56:55.542 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:55.613 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:55.615 +00:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 154.9528 ms
+2025-02-18 11:56:55.618 +00:00 [INF] Request finished HTTP/2 POST https://localhost:8081/_blazor/disconnect - 200 0 null 160.3308ms
+2025-02-18 11:56:55.699 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:56:55.701 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:56:55.718 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:56:57.760 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/?culture=en-US - null null
+2025-02-18 11:56:57.761 +00:00 [INF] Executing endpoint '/ (/)'
+2025-02-18 11:56:57.801 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:56:57.802 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:56:57.822 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
+2025-02-18 11:56:57.835 +00:00 [INF] Executed endpoint '/ (/)'
+2025-02-18 11:56:57.836 +00:00 [INF] HTTP GET / responded 200 in 75.0982 ms
+2025-02-18 11:56:57.859 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - null null
+2025-02-18 11:56:57.860 +00:00 [INF] Request starting HTTP/2 POST https://localhost:8081/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryPfsttZavBvzxYN0E 359
+2025-02-18 11:56:57.861 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - null null
+2025-02-18 11:56:57.861 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:56:57.886 +00:00 [INF] HTTP GET /CodelineAirlines.styles.css responded 404 in 25.2130 ms
+2025-02-18 11:56:57.886 +00:00 [INF] Executing endpoint 'Blazor web static files'
+2025-02-18 11:56:57.889 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:57.891 +00:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-02-18 11:56:57.890 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/CodelineAirlines.styles.css - 404 0 null 30.247ms
+2025-02-18 11:56:57.889 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/?culture=en-US - 200 null text/html; charset=utf-8 129.3626ms
+2025-02-18 11:56:57.892 +00:00 [INF] Executed endpoint 'Blazor web static files'
+2025-02-18 11:56:57.893 +00:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:8081/CodelineAirlines.styles.css, Response status code: 404
+2025-02-18 11:56:57.895 +00:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 9.4050 ms
+2025-02-18 11:56:57.900 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_framework/blazor.web.js - 304 null text/javascript 38.9944ms
+2025-02-18 11:56:57.901 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:57.926 +00:00 [INF] Request starting HTTP/2 GET https://localhost:8081/_blazor/initializers - null null
+2025-02-18 11:56:57.925 +00:00 [INF] HTTP CONNECT /_blazor responded 200 in 2386.1882 ms
+2025-02-18 11:56:57.929 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:57.929 +00:00 [INF] Request finished HTTP/2 CONNECT https://localhost:8081/_blazor?id=KArY5d_zjQXIwVKU33LjTA - 200 null null 2394.4175ms
+2025-02-18 11:56:57.931 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:57.935 +00:00 [INF] HTTP GET /_blazor/initializers responded 200 in 6.1017 ms
+2025-02-18 11:56:57.939 +00:00 [INF] Request finished HTTP/2 GET https://localhost:8081/_blazor/initializers - 200 null application/json; charset=utf-8 10.8795ms
+2025-02-18 11:56:57.972 +00:00 [INF] Request starting HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-02-18 11:56:57.972 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:57.974 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:56:57.974 +00:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 112.7607 ms
+2025-02-18 11:56:57.975 +00:00 [INF] Request finished HTTP/2 POST https://localhost:8081/_blazor/disconnect - 200 0 null 114.8454ms
+2025-02-18 11:56:57.975 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:57.977 +00:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:57.977 +00:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.8093 ms
+2025-02-18 11:56:57.979 +00:00 [INF] Request finished HTTP/2 POST https://localhost:8081/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 7.5988ms
+2025-02-18 11:56:57.985 +00:00 [INF] Request starting HTTP/2 CONNECT https://localhost:8081/_blazor?id=Zg6RJc8zgZQdM2jBhhmZig - null null
+2025-02-18 11:56:57.987 +00:00 [INF] CORS policy execution successful.
+2025-02-18 11:56:57.987 +00:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-02-18 11:56:58.235 +00:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://db:5432'.
+2025-02-18 11:56:58.236 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'CodelineAirlines.Shared.ApplicationDbContext'.
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "postgres"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.<Get>g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.InitializeReader(Enumerator enumerator)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.<>c.<MoveNext>b__21_0(DbContext _, Enumerator enumerator)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "postgres"
+    File: auth.c
+    Line: 321
+    Routine: auth_failed
+2025-02-18 11:56:58.251 +00:00 [ERR] 28P01: password authentication failed for user "postgres"
