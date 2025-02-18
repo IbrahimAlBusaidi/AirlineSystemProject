@@ -6,7 +6,9 @@
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @using Microsoft.JSInterop
+@using Microsoft.Extensions.Localization
 @using CodelineAirlines
+@using Microsoft.AspNetCore.Localization;
 @using CodelineAirlines.Website.Features.Home.Components.SearchSectionComponents
 @using CodelineAirlines.Website.Features.Home
 @using CodelineAirlines.Website.Features.Home.Components
@@ -26,12 +28,14 @@
 @using CodelineAirlines.Website.Features.ConfirmBooking
 @using CodelineAirlines.Website.Features.ConfirmBooking.Components
 @using CodelineAirlines.Website.Features.ConfirmBooking.Components.BookingSectionComponents
-@using CodelineAirlines.Shared.Models
+@using CodelineAirlines.Website.Features.Shared.Layout
+@using CodelineAirlines.Website.Features.Shared.Layout.Components
 @using CodelineAirlines.Website.Features
 @using CodelineAirlines.Website.Features.Shared.Layout.Main
 @using CodelineAirlines.Website.Features.Shared.Layout.Admin
 @using CodelineAirlines.Website.Features.Shared.Layout.Client
 @using CodelineAirlines.Website.Services
+@using CodelineAirlines.Shared.Models
 @using CodelineAirlines.Shared.Models.DTOs
 @using CodelineAirlines.Shared.Models.DTOs.AirplaneDTOs
 @using CodelineAirlines.Shared.Models.DTOs.AirplaneSpecDTOs
@@ -42,6 +46,7 @@
 @using CodelineAirlines.Shared.Models.DTOs.ReviewDTOs
 @using CodelineAirlines.Shared.Models.DTOs.UserDTOs
 @using CodelineAirlines.Shared.Enums
+@using CodelineAirlines.Shared.Locales
 @using CodelineAirlines.Website.Services.Mapping
 @using CodelineAirlines.Website.Services.Authentication
 @using CodelineAirlines.Website.Services.ClientServices

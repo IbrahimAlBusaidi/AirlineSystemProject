@@ -1,0 +1,29 @@
+services:
+  codelineairlines.website:
+    image: codelineairlineswebsite
+    build:
+      context: .
+      dockerfile: CodelineAirlines.Website/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081l
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - db
+  db:
+    container_name: codelineairlinesContainer
+    image: postgres
+    restart: always
+    ports:
+       - "5432:5432"
+    environment: 
+       POSTGRES_DB: postgres
+       POSTGRES_USER: postgres
+       POSTGRES_PASSWORD: postgres
+    volumes:
+       - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:  

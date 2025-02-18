@@ -8,6 +8,8 @@ using CodelineAirlines.Website.Services.ClientServices;
 using CodelineAirlines.Website.Services.NotificationServices;
 using CodelineAirlines.Website.Services.WeatherForecast;
 using CodelineAirlines.Website.Services.Mapping;
+using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Localization;
 using CodelineAirlines.Shared.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,7 @@ using System.Text;
 using MudBlazor.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Serilog;
+using System.Globalization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -96,6 +99,9 @@ builder.Services.AddScoped<BookingState>();
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 builder.Services.AddSingleton(jwtSettings);
 
+// Adding Localization service
+builder.Services.AddLocalization();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -138,6 +144,17 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 var app = builder.Build();
+
+var supportedCultures = new[] { "en-US", "fr-FR", "es-ES", "ar-AR" };
+var defaultCulture = "en-US";
+
+var requestCulture = new RequestCulture(defaultCulture);
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = requestCulture,
+    SupportedCultures = supportedCultures.Select(c => new CultureInfo(c)).ToList(),
+    SupportedUICultures = supportedCultures.Select(c => new CultureInfo(c)).ToList()
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
